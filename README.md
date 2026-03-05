@@ -1,9 +1,9 @@
-Version [PL](#projekt-www) | [ENG](#project-www)
-# projekt WWW 
+Version [PL](#kantor-sknerusa-mckwacza) | [ENG](#scrooge-mcducks-exchange-office)
+# Kantor Sknerusa McKwacza 
 ## Spis treści
 - [Zespół](#zespół)
 - [Opis](#opis)
-- [Podgląd projektu](#podglad-projektu)
+- [Podgląd projektu](#podgląd-projektu)
 - [Funkcjonalności](#funkcjonalności)
 - [Technologie](#technologie)
 - [Uruchomienie projektu lokalnie](#uruchomienie-projektu-lokalnie)
@@ -53,12 +53,12 @@ Aplikacja zostanie uruchomiona lokalnie i dostępna pod adresem `http://localhos
 Instrukcja
 
 ---
-# Event Registration and Management app
+# Scrooge McDuck's Exchange Office
 ## Table of contents
 - [Team](#team)
 - [Description](#description)
 - [Project preview](#project-preview)
-- [Functionalities](#functionalities)
+- [Features](#features)
 - [Tech stack](#tech-stack)
 - [Project setup](#project-setup)
 - [Instruction](#instruction)
