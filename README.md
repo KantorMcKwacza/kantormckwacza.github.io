@@ -35,7 +35,7 @@ Screeny
 ## Uruchomienie projektu lokalnie
 
 ### Wymagania
- * Zainstalowany [Node.js](https://nodejs.org/)
+ * Zainstalowany [Node.js](https://nodejs.org/) razem z menadżerem pakietów [npm](https://www.npmjs.com/get-npm)
 
 ### Przygotowanie projektu
 Pobranie i przejście do głównego folderu projektu:
@@ -43,9 +43,13 @@ Pobranie i przejście do głównego folderu projektu:
 git clone https://github.com/KantorMcKwacza/kantormckwacza.github.io.git
 cd kantormckwacza.github.io
 ```
+Instalacja wymaganych pakietów:
+```
+npm install
+```
 Uruchomienie aplikacji:
 ```
-node server.js
+npm start
 ```
 Aplikacja zostanie uruchomiona lokalnie i dostępna pod adresem `http://localhost:4200/`
 
@@ -95,9 +99,13 @@ Clone the repository and navigate to the project folder:
 git clone https://github.com/KantorMcKwacza/kantormckwacza.github.io.git
 cd kantormckwacza.github.io
 ```
+Install the required dependencies:
+```
+npm install
+```
 Run the application:
 ```
-node server.js
+npm start
 ```
 The application will be available locally at `http://localhost:4200/`
 
