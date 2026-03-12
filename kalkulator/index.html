@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/src/css/style.css">
+  <script defer src="/src/js/constants.js"></script>
+  <script defer src="/src/js/countries.js"></script>
   <script defer src="/src/js/calculator.js"></script>
   <title>Kantor Sknerusa McKwacza</title>
 </head>
@@ -20,7 +22,7 @@
   <main>
     <section>
       <h1>Kalkulator podróży</h1>
-      <table>
+      <table id="expenses-table">
         <thead>
           <tr>
             <th>Nr</th>
@@ -30,7 +32,7 @@
             <th>Waluta</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="expenses-table-body">
           <tr>
             <th>0</th>
             <th>Polska</th>
@@ -40,27 +42,27 @@
           </tr>
         </tbody>
         <tfoot>
-          <tr id="new-expense">
+          <tr id="new-expense" hidden>
             <th colspan="5">
-              <form id="expense-form">
+              <form id="expense-form" method="post">
                 <select id="country" name="country" required>
-                  <option value="">--Wyierz Kraj--</option>
+                  <option value="">--Wybierz Kraj--</option>
                 </select>
                 <input type="text" id="name" name="name" placeholder="Nazwa Wydatku" required>
                 <input type="number" id="value" name="value" placeholder="Koszt Wydatku" required>
-                <label id="currency-symbol">zł</label>
+                <input type="text" name="currency" id="currency" value="zł" disabled></label>
 
                 <button type="submit">Dodaj</button>
               </form>
             </th>
           </tr>
           <tr>
-            <th><button>+</button></th>
+            <th><button id="add-new-expense" onclick="showExpenseForm()">+</button></th>
             <th>Suma wydatków</th>
             <th id="sum-value" colspan="2">324</th>
             <th>
               <select id="currency" name="currency" required>
-                    <option value="">--Wyierz Walutę--</option>
+                    <option value="">--Wybierz Walutę--</option>
               </select>
             </th>
           </tr>
