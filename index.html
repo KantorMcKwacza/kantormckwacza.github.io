@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/src/css/style.css">
   <script defer src="/src/js/script.js"></script>
+  <script defer src="/src/js/calculator.js"></script>
+  <script defer src="/src/js/countries.js"></script>
   <title>Kantor Sknerusa McKwacza</title>
 </head>
 <body>
@@ -22,8 +24,17 @@
       <h1>Kalkulator podróży</h1>
       <form id="calc-form">
         <label for="amount"></label>
+
         <input type="number" id="amount" name="amount" required>
+        <select id="origin" name="origin" required>
+          <option value="">--Wyierz Kraj--</option>
+        </select>
+
         <button type="submit">Oblicz</button>
+
+        <select id="target" name="target" required>
+          <option value="">--Wyierz Kraj--</option>
+        </select>
         <output id="result" name="result" for="amount">
       </form>
     </section>
