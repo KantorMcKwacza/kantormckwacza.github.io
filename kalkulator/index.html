@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/src/css/style.css">
-  <script defer src="/src/js/script.js"></script>
+  <script defer src="/src/js/calculator.js"></script>
   <title>Kantor Sknerusa McKwacza</title>
 </head>
 <body>
@@ -20,6 +20,52 @@
   <main>
     <section>
       <h1>Kalkulator podróży</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Nr</th>
+            <th>Kraj</th>
+            <th>Nazwa Wydatku</th>
+            <th>Koszt</th>
+            <th>Waluta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>0</th>
+            <th>Polska</th>
+            <th>test</th>
+            <th>324</th>
+            <th>zł</th>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr id="new-expense">
+            <th colspan="5">
+              <form id="expense-form">
+                <select id="country" name="country" required>
+                  <option value="">--Wyierz Kraj--</option>
+                </select>
+                <input type="text" id="name" name="name" placeholder="Nazwa Wydatku" required>
+                <input type="number" id="value" name="value" placeholder="Koszt Wydatku" required>
+                <label id="currency-symbol">zł</label>
+
+                <button type="submit">Dodaj</button>
+              </form>
+            </th>
+          </tr>
+          <tr>
+            <th><button>+</button></th>
+            <th>Suma wydatków</th>
+            <th id="sum-value" colspan="2">324</th>
+            <th>
+              <select id="currency" name="currency" required>
+                    <option value="">--Wyierz Walutę--</option>
+              </select>
+            </th>
+          </tr>
+        </tfoot>
+      </table>
     </section>
   </main>
 
