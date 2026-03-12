@@ -113,7 +113,10 @@ async function getCountryDetails(countryCode) {
       console.error('Error:', error);
     });
 }
-fetch(countryApiUrl + withThose + fields)
+
+fields = 'cca3,flag,name,currencies'
+fetch(countriesApiUrl + withThose + fields)
+
 .then(response => {
   if (!response.ok) {
     throw new Error('Network response was not ok');
@@ -129,11 +132,9 @@ fetch(countryApiUrl + withThose + fields)
     let name = country.cca3;
     let fullName = country.name.common;
     let flag = country.flag;
-    let currency = Object.keys(country.currencies)[0];
-    let currencySymbol = country.currencies.symbol;
 
     let option = document.createElement('option');
-    option.value = country.name;
+    option.value = name;
     option.innerText = flag + ' ' + name;
 
     let originOption = option;
