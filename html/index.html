@@ -27,13 +27,33 @@
     <section>
       <h1 class="form-h1">Przelicznik walut</h1>
       <form action="script.js" class="main-form">
+
         <label for="amount-top">Kwota:</label>
-        <input type="number" class="top-input" id="amount-top" name="amount" required>
+        <div class="input-group">
+          <input type="number" class="top-input" id="amount-top" name="amount" required>
+          <select>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <option value="CHF">CHF</option>
+          </select>
+        </div>
 
         <button type="submit" class="change"><span class="material-symbols-outlined">swap_horiz</span></button >
 
         <label for="amount-bottom">Przewalutowano na:</label>
-        <input type="number" class="bottom-input" id="amount-bottom" name="amount" required>
+        <div class="input-group">
+          <input type="number" class="bottom-input" id="amount-bottom" name="amount" required>
+          <select>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <option value="CHF">CHF</option>
+          </select>
+        </div>
+        
       </form>
     </section>
   </main>
