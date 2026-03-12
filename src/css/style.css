@@ -1,0 +1,108 @@
+:root {
+  font-size: 100%;
+}
+
+
+div {
+  height: 16vw;
+  width: 16vw;
+}
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.background           { background-color: var(--background-color); }
+.background-dark      { background-color: var(--background-color-dark); }
+.background-light     { background-color: var(--background-color-light); }
+.background-light-alt { background-color: var(--background-color-light-alt); }
+.background-white     { background-color: var(--background-color-white); }
+.background-alt       { background-color: var(--background-color-alt); }
+
+.background-feature   { background-color: var(--background-color-feature);}
+.feature              { background-color: var(--feature-color);}
+.feature-alt          { background-color: var(--feature-color-alt);}
+
+.primary              { background-color: var(--primary-color);}
+.primary-light        { background-color: var(--primary-color-light);}
+.primary-dark         { background-color: var(--primary-color-dark);}
+
+.secondary            { background-color: var(--secondary-color);}
+.secondary-dark       { background-color: var(--secondary-color-dark);}
+.secondary-dark-alt   { background-color: var(--secondary-color-dark-alt);}
+.secondary-light      { background-color: var(--secondary-color-light);}
+.secondary-light-alt  { background-color: var(--secondary-color-light-alt);}
+
+
+.border {
+  border: 0.2rem solid var(--border-color);
+}
+
+.border-double {
+  border: 0.6rem double var(--border-color);
+}
+
+.text {
+  font-size: 4rem;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.8rem;
+  margin: 0;
+  margin-left: 0.2rem;
+  text-align: center;
+  color: var(--text-color);
+  background-color: var(--primary-color);
+}
+
+.text-light {
+  background-color: var(--primary-color-light);
+}
+
+.text-alt {
+  color: var(--primary-color);
+}
+
+.text-thick {
+  font-weight: 900;
+}
+
+.text-border {
+  text-shadow:   0px -1px 1px var(--border-color),
+                 0px  1px 1px var(--border-color),
+                -1px  0px 1px var(--border-color),
+                 1px  0px 1px var(--border-color),
+                -1px -1px 1px var(--border-color),
+                 1px -1px 1px var(--border-color),
+                -1px  1px 1px var(--border-color),
+                 1px  1px 1px var(--border-color);
+}
+
+.text-border-thick {
+  text-shadow:   0px -1px 1px var(--border-color),
+                 0px  1px 1px var(--border-color),
+                -1px  0px 1px var(--border-color),
+                 1px  0px 1px var(--border-color),
+                -1px -1px 1px var(--border-color),
+                 1px -1px 1px var(--border-color),
+                -1px  1px 1px var(--border-color),
+                 1px  1px 1px var(--border-color),
+
+                 0px -2px 1px var(--border-color),
+                -2px  0px 1px var(--border-color),
+                 0px  2px 1px var(--border-color),
+                 2px  0px 1px var(--border-color),
+                -2px -2px 1px var(--border-color),
+                 2px -2px 1px var(--border-color),
+                -2px  2px 1px var(--border-color),
+                 2px  2px 1px var(--border-color),
+
+                 2px -1px 1px var(--border-color),
+                 2px  1px 1px var(--border-color),
+                -2px  1px 1px var(--border-color),
+                -2px -1px 1px var(--border-color),
+                -1px -2px 1px var(--border-color),
+                 1px -2px 1px var(--border-color),
+                -1px  2px 1px var(--border-color),
+                 1px  2px 1px var(--border-color);
+}
