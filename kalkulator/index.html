@@ -33,13 +33,6 @@
           </tr>
         </thead>
         <tbody id="expenses-table-body">
-          <tr>
-            <th>0</th>
-            <th>Polska</th>
-            <th>test</th>
-            <th>324</th>
-            <th>zł</th>
-          </tr>
         </tbody>
         <tfoot>
           <tr id="new-expense" hidden>
@@ -50,7 +43,9 @@
                 </select>
                 <input type="text" id="name" name="name" placeholder="Nazwa Wydatku" required>
                 <input type="number" id="value" name="value" placeholder="Koszt Wydatku" required>
-                <input type="text" name="currency" id="currency" value="zł" disabled></label>
+                <input type="text" name="currencyName" id="currencyName" value="-" disabled></input>
+                <input type="text" name="currencySymbol" id="currencySymbol" value="" disabled hidden></input>
+                <input type="text" name="currencyCode" id="currencyCode" value="-" disabled hidden></input>
 
                 <button type="submit">Dodaj</button>
               </form>

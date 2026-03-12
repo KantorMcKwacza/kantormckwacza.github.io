@@ -21,10 +21,11 @@ function hideExpenseForm() {
 }
 
 function createExpenseEntry() {
-  let country  = expenseForm.country.value;
+  let country  = expenseForm.country.options[expenseForm.country.selectedIndex].text;
   let name     = expenseForm.name.value;
   let value    = expenseForm.value.valueAsNumber;
-  let currency = expenseForm.currency.value;
+  let symbol   = expenseForm.currencySymbol.value;
+  let currency = expenseForm.currencyName.value;
 
   let tbody = expensesTableBody;
 
@@ -38,7 +39,7 @@ function createExpenseEntry() {
   thNum.innerText      = currentExpenseNumber;
   thCountry.innerText  = country;
   thName.innerText     = name;
-  thValue.innerText    = value;
+  thValue.innerText    = value + ' ' + symbol;
   thCurrency.innerText = currency;
 
   tr.appendChild(thNum);
@@ -58,4 +59,8 @@ expenseForm.addEventListener('submit', (event) => {
   expenseForm.reset();
   hideExpenseForm();
   event.preventDefault();
-})
+});
+
+expenseForm.country.addEventListener('change', (event) => {
+  getCountryCurrency(expenseForm.currencyName, expenseForm.currencySymbol, expenseForm.currencyCode, expenseForm.country.value);
+});
