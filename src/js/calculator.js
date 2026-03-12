@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const expenses = new Expenses();
 
 expenses.loadLocalStorage();
@@ -37,3 +38,32 @@ expenses.countryList.addEventListener('change', (event) => {
 expenses.currencyList.addEventListener('change', (event) => {
   expenses.updateSumElement();
 });
+=======
+
+calcForm.addEventListener('submit', (event) => {
+  let url = nbpApiUrl + '/' + nbpApiTable[0] + '/' + targetCountryCode + nbpApiFormat;
+
+  let value = calcForm.amount.valueAsNumber;
+
+  fetch(url)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(responseData => {
+    if(resultPrecision < 0) { throw new Error("Precision of the result cannot be lower than 0"); }
+
+    let rateValue = responseData.rates[0].mid;
+    let result = Math.round(value * rateValue * 10 ** resultPrecision) / (10 ** resultPrecision);
+
+    calcForm.result.innerText = result + ' ' + targetCountryCode;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+  event.preventDefault();
+})
+>>>>>>> 4e0af7b (Dodano listy wyboru kraju pobierane z restcountries api. Przeniesiono kod odpowiedzialny za przeliczanie walut do calculator.js)

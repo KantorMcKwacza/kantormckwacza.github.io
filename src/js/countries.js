@@ -1,18 +1,4 @@
-/**
- * Zapełnia element listą elementów zawierających pozyskane informacje z *restcountries.com*
- * - Wysyła żądanie do *restcountries.com* o przefiltrowane dane wszystkich dostępnych krajów.
- * Wybrane pola są ustawione pod zmienną fields.
- * - Tworzy nowy element typu `childType`, dla każdego kraju i wypełnia go pozyskanymi danymi.
- *   * W zależności od `getFullName`, ustawia `innerText` elementu na flagę i kod lub flagę i pełną nazwę kraju (przetłumaczoną na język polski).
- *   * W zależności od `useIdAsValue`, ustawia `value` lub `id` elementu na kod kraju.
- * - Dodaje nowe elementy do danego nadrzędnego elementu `selectElement`.
- *
- * @param {HTMLElement} selectElement Nadrzędny element wypełniany nowo utworzonymi elementami
- * @param {string} childType Typ elementu potomnego (np. option)
- * @param {boolean} [getFullName=false] Jeśli `true` używana jest pełna nazwa kraju
- * @param {boolean} [useIdAsValue=false] Jeśli `true` używane jest `id` elementu zamiast `value`
- * @returns {Promise<void>} Zwraca wartość po przetworzeniu żądania
- */
+
 async function populateWithCountries(selectElement, childType, getFullName = false, useIdAsValue = false) {
   let fields = 'cca3,flag,name,currencies,translations'
 
@@ -47,17 +33,6 @@ async function populateWithCountries(selectElement, childType, getFullName = fal
   });
 }
 
-/**
- * Wysyła żądanie do *restcountries.com* o informacje, o walucie kraju, którego kod został podany w `countryCode`.
- *
- * Ustawia `value` podanych elementów `nameElement`, `symbolElement` i `codeElement`
- * na odpowiednio *nazwę waluty*, *symbol waluty* oraz *kod waluty*.
- *
- * @param {HTMLElement} nameElement Element do którego zostanie przypisana nazwa waluty pod `value`
- * @param {HTMLElement} symbolElement Element do którego zostanie przypisany symbol waluty pod `value`
- * @param {HTMLElement} codeElement Element do którego zostanie przypisany kod waluty pod `value`
- * @param {string} countryCode Trzyliterowy kod kraju wg. standardu ISO 3166-1
- */
 function insertCountryCurrency(nameElement, symbolElement, codeElement, countryCode) {
   let fields = 'currencies'
   const warningBox = document.getElementById('currency-warning');
@@ -117,15 +92,6 @@ if(responseData === undefined || !responseData.currencies || Object.keys(respons
   });
 }
 
-
-/**
- * Wysyła żądanie do *restcountries.com* o informacje, o walucie kraju, którego kod został podany w `countryCode`.
- *
- * Zwraca odpowiedź z polami ustalonymi pod zmienną `fields`.
- *
- * @param {string} countryCode Trzyliterowy kod kraju wg. standardu ISO 3166-1
- * @returns {Promise<Response>} Zwraca wartość po przetworzeniu żądania
- */
 async function getCountryDetails(countryCode) {
   let fields = 'capital,borders,area,maps,population,car,timezones,continents,currencies,languages,flags,translations';
 
@@ -147,3 +113,36 @@ async function getCountryDetails(countryCode) {
       console.error('Error:', error);
     });
 }
+fetch(countryApiUrl + withThose + fields)
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(responseData => {
+  const originList = calcForm.origin;
+  const targetList = calcForm.target;
+
+  const countries = responseData;
+  for(let country of countries) {
+    let name = country.cca3;
+    let fullName = country.name.common;
+    let flag = country.flag;
+    let currency = Object.keys(country.currencies)[0];
+    let currencySymbol = country.currencies.symbol;
+
+    let option = document.createElement('option');
+    option.value = country.name;
+    option.innerText = flag + ' ' + name;
+
+    let originOption = option;
+    let targetOption = option.cloneNode(true);
+
+    originList.appendChild(originOption);
+    targetList.appendChild(targetOption);
+  }
+})
+.catch(error => {
+  console.error('Error:', error);
+});
