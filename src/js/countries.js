@@ -1,6 +1,6 @@
 
 function populateWithCountries(selectElement, getFullName = false) {
-  let fields = 'cca3,flag,name,currencies'
+  let fields = 'cca3,flag,name,currencies,translations'
 
   fetch(countriesApiUrl + withThose + fields)
   .then(response => {
@@ -15,7 +15,7 @@ function populateWithCountries(selectElement, getFullName = false) {
       let name = country.cca3;
       let visibleName = name;
       if(getFullName)
-        visibleName = country.name.common;
+        visibleName = country.translations.pol.common; //country.name.common;
       let flag = country.flag;
 
       let option = document.createElement('option');
