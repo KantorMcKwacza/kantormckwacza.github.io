@@ -6,7 +6,9 @@ expenses.populateLists();
 expenses.form.addEventListener('submit', (event) => {
   expenses.createExpenseEntry();
   expenses.createExpenseEntryElement();
+
   expenses.addEntryValueToSum();
+  //expenses.updateSumElement();
 
   expenses.form.reset();
   expenses.hideExpenseForm();

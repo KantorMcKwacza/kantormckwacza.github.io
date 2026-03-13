@@ -67,42 +67,24 @@ class Expenses {
     this.#expensesTableBody.appendChild(tr);
   }
 
-  addEntryValueToSum() {
+  async addEntryValueToSum() {
     let entry = this.#expenseEntry;
     let currencyCode = entry.code;
     let value = entry.value;
 
-    if(currencyCode === '') { return; }
-    if(currencyCode == 'PLN') {
-      this.#expensesSumInPLN += parseInt(value);
-      this.updateExpensesSum();
-      return;
-    }
+    this.#expensesSumInPLN += await exchangeToFromPLN(currencyCode, exchangeDirection.INTO, value);
 
-    let url = nbpApiUrl + '/' + nbpApiTable[1] + '/' + currencyCode + nbpApiFormat;
-
-    fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(responseData => {
-      let rateValue = responseData.rates[0].mid;
-      let result = value * rateValue;
-
-      this.#expensesSumInPLN += result;
-      this.updateExpensesSum();
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    this.updateSumElement();
   }
 
-  async updateExpensesSum() {
+  async updateSumElement() {
     let code = this.#currencyList.value;
-    let sum = await convertPLNToCurrency(code, this.#expensesSumInPLN);
+    let sum = await exchangeToFromPLN(code, exchangeDirection.FROM, this.#expensesSumInPLN);
+
+    if(sum === 0) {
+      console.warn('Warning:', 'Exchange aborted. Expense will not be counted in sum');
+      return;
+    }
 
     this.#sumValue.innerText = Math.round(sum * 10 ** resultPrecision) / (10 ** resultPrecision);
   }
