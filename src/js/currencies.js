@@ -1,6 +1,5 @@
 
 async function populateWithCurrencies(selectElement) {
-
   let url = nbpListApiUrl + '/' + nbpApiTable[0] + nbpApiFormat;
 
   let responseDataTabA = await fetch(url)
@@ -39,7 +38,6 @@ async function populateWithCurrencies(selectElement) {
 
     selectElement.appendChild(option);
   }
-
 }
 
 async function convertPLNToCurrency(currencyCode, value) {

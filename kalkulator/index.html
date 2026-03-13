@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/src/css/style.css">
   <script defer src="/src/js/constants.js"></script>
+  <script defer src="/src/js/expenses.js"></script>
   <script defer src="/src/js/countries.js"></script>
   <script defer src="/src/js/currencies.js"></script>
   <script defer src="/src/js/calculator.js"></script>
@@ -53,7 +54,7 @@
             </th>
           </tr>
           <tr>
-            <th><button id="add-new-expense" onclick="showExpenseForm()">+</button></th>
+            <th><button id="add-new-expense" onclick="expenses.showExpenseForm()">+</button></th>
             <th>Suma wydatków</th>
             <th id="sum-value" colspan="2">0</th>
             <th>

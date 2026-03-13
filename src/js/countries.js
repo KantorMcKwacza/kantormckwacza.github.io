@@ -1,5 +1,4 @@
 
-
 function populateWithCountries(selectElement, getFullName = false) {
   let fields = 'cca3,flag,name,currencies'
 
@@ -31,7 +30,7 @@ function populateWithCountries(selectElement, getFullName = false) {
   });
 }
 
-function getCountryCurrency(nameElement, symbolElement, codeElement, countryCode) {
+function insertCountryCurrency(nameElement, symbolElement, codeElement, countryCode) {
   let fields = 'currencies'
 
   fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields)
