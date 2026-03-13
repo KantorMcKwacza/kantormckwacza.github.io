@@ -41,14 +41,20 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
     return response.json();
   })
   .then(responseData => {
-    const country = responseData;
-    let currencyCode   = Object.keys(country.currencies)[0];
-    let currencyName = country.currencies[currencyCode].name;
-    let currencySymbol = country.currencies[currencyCode].symbol;
+    if(responseData === undefined) {
+      console.warn('Invalid or missing country code!');
+    } else if(Object.keys(responseData.currencies).length === 0) {
+      console.info('No currencies found for this country');
+    } else {
+      const country = responseData;
+      let currencyCode   = Object.keys(country.currencies)[0];
+      let currencyName = country.currencies[currencyCode].name;
+      let currencySymbol = country.currencies[currencyCode].symbol;
 
-    nameElement.value   = currencyName;
-    symbolElement.value = currencySymbol;
-    codeElement.value   = currencyCode;
+      nameElement.value   = currencyName;
+      symbolElement.value = currencySymbol;
+      codeElement.value   = currencyCode;
+    }
   })
   .catch(error => {
     console.error('Error:', error);
