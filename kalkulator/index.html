@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/src/css/style.css">
   <script defer src="/src/js/constants.js"></script>
   <script defer src="/src/js/countries.js"></script>
+  <script defer src="/src/js/currencies.js"></script>
   <script defer src="/src/js/calculator.js"></script>
   <title>Kantor Sknerusa McKwacza</title>
 </head>
@@ -54,10 +55,10 @@
           <tr>
             <th><button id="add-new-expense" onclick="showExpenseForm()">+</button></th>
             <th>Suma wydatków</th>
-            <th id="sum-value" colspan="2">1</th>
+            <th id="sum-value" colspan="2">0</th>
             <th>
               <select id="currency" name="currency" required>
-                    <option value="">--Wybierz Walutę--</option>
+                    <option value="PLN">polski złoty</option>
               </select>
             </th>
           </tr>

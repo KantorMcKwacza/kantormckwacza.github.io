@@ -1,6 +1,7 @@
 const resultPrecision = 2;
 
 const nbpApiUrl       = 'https://api.nbp.pl/api/exchangerates/rates';
+const nbpListApiUrl   = 'https://api.nbp.pl/api/exchangerates/tables';
 const nbpApiTable     = ['A', 'B'];
 const nbpApiFormat    = '?format=json';
 

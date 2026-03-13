@@ -7,6 +7,7 @@ const expensesTableBody = document.getElementById('expenses-table-body');
 const newExpense        = document.getElementById('new-expense');
 const expenseForm       = document.getElementById('expense-form');
 const sumValue          = document.getElementById('sum-value');
+const currencyList      = document.getElementById('currency');
 
 let currentExpenseNumber = 1;
 let expensesSumInPLN     = 0;
@@ -15,6 +16,8 @@ let countryList = expenseForm.country;
 populateWithCountries(countryList, true);
 updateExpensesSum();
 
+populateWithCurrencies(currencyList);
+
 function showExpenseForm() {
   newExpense.removeAttribute('hidden');
 }
@@ -22,8 +25,10 @@ function hideExpenseForm() {
   newExpense.hidden = 'hidden';
 }
 
-function updateExpensesSum() {
-  sumValue.innerText = Math.round(expensesSumInPLN * 10 ** resultPrecision) / (10 ** resultPrecision);
+async function updateExpensesSum() {
+  let code = currencyList.value;
+  let sum = await convertPLNToCurrency(code, expensesSumInPLN);
+  sumValue.innerText = Math.round(sum * 10 ** resultPrecision) / (10 ** resultPrecision);
 }
 
 function addToExpensesSum(currencyCode, value) {
@@ -39,7 +44,6 @@ function addToExpensesSum(currencyCode, value) {
   fetch(url)
   .then(response => {
     if (!response.ok) {
-      alert(response.statusText);
       throw new Error('Network response was not ok');
     }
     return response.json();
@@ -101,4 +105,8 @@ expenseForm.addEventListener('submit', (event) => {
 
 expenseForm.country.addEventListener('change', (event) => {
   getCountryCurrency(expenseForm.currencyName, expenseForm.currencySymbol, expenseForm.currencyCode, expenseForm.country.value);
+});
+
+currencyList.addEventListener('change', (event) => {
+  updateExpensesSum();
 });
