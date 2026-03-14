@@ -5,6 +5,10 @@ const exchangeDirection = {
   INTO: false
 }
 
+const EXPENSECOUNT = 'ecount';
+const EXPENSESUM   = 'esum';
+const EXPENSEBASE  = 'exp-';
+
 const nbpApiUrl       = 'https://api.nbp.pl/api/exchangerates/rates';
 const nbpListApiUrl   = 'https://api.nbp.pl/api/exchangerates/tables';
 const nbpApiTable     = ['A', 'B'];

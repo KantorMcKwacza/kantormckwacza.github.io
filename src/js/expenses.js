@@ -75,6 +75,7 @@ class Expenses {
     this.#expensesSumInPLN += await exchangeToFromPLN(currencyCode, exchangeDirection.INTO, value);
 
     this.updateSumElement();
+    this.updateLocalStorage();
   }
 
   async updateSumElement() {
@@ -89,8 +90,26 @@ class Expenses {
     this.#sumValue.innerText = Math.round(sum * 10 ** resultPrecision) / (10 ** resultPrecision);
   }
 
-  updateLocalStorage() {
+  loadLocalStorage() {
+    let expnum = parseInt(localStorage.getItem(EXPENSECOUNT));
+    let expsum = parseFloat(localStorage.getItem(EXPENSESUM));
 
+    if(!isNaN(expnum)) this.#currentExpenseNumber = expnum;
+    if(!isNaN(expsum)) this.#expensesSumInPLN = expsum;
+
+    this.updateSumElement();
+    for(let i = 1; i < this.#currentExpenseNumber; i++) {
+      let entry = localStorage.getItem(EXPENSEBASE + i);
+      this.#expenseEntry = JSON.parse(entry);
+      this.#expensesList[i] = this.#expenseEntry;
+      this.createExpenseEntryElement();
+    }
+  }
+
+  updateLocalStorage() {
+    localStorage.setItem(EXPENSECOUNT, this.#currentExpenseNumber);
+    localStorage.setItem(EXPENSESUM,   this.#expensesSumInPLN);
+    localStorage.setItem(EXPENSEBASE + this.#expenseEntry.id, JSON.stringify(this.#expenseEntry));
   }
 
   get form() {
