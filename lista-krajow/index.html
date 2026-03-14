@@ -4,8 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="/kantormckwacza.github.io/style/style.css">
-  <script defer src="/src/js/script.js"></script>
+  <link rel="stylesheet" href="/src/css/style.css">
+  <script defer src="/src/js/constants.js"></script>
+  <script defer src="/src/js/countries.js"></script>
+  <script defer src="/src/js/country_list.js"></script>
   <title>Kantor Sknerusa McKwacza</title>
 </head>
 <body>
@@ -13,47 +15,52 @@
     <img src="" alt="logotyp">
     <nav>
         <a href="/">Strona główna</a>
-        <a href="/kalkulator.html">Kalkulator podróży</a>
+        <a href="/kalkulator">Kalkulator podróży</a>
         <a href="/lista-krajow">Lista Krajów</a>
     </nav>
   </header>
 
   <main>
-    <section>
+    <section id="list-section">
       <h1>Lista krajów</h1>
-      <ul>
-        <li>kraj 1</li>
-        <li>kraj 2</li>
-        <li>...</li>
-        <li>kraj 10</li>
+      <ul id="country-list">
       </ul>
+    </section>
+    <section id="country-details">
+
     </section>
     <nav aria-label="pagination">
       <ul class="pagination">
         <li>
           <a href="">
             <span aria-hidden="true">&laquo;</span>
-            <span class="visuallyhidden">previous set of pages</span>
+            <span class="visuallyhidden">poprzednia strona</span>
           </a>
         </li>
         <li>
-          <a href=""><span class="visuallyhidden">page </span>1</a>
-        </li>
-        <li>
-          <a href="" aria-current="page">
-            <span class="visuallyhidden">page </span>2
+          <a href="?page=1">
+            <span class="visuallyhidden">strona </span>1
           </a>
         </li>
         <li>
-          <a href=""> <span class="visuallyhidden">page </span>3 </a>
+          <a href="?page=2" aria-current="page">
+            <span class="visuallyhidden">strona </span>2
+          </a>
         </li>
         <li>
-          <a href=""> <span class="visuallyhidden">page </span>4 </a>
+          <a href="?page=3">
+            <span class="visuallyhidden">strona </span>3
+          </a>
+        </li>
+        <li>
+          <a href="?page=4">
+            <span class="visuallyhidden">strona </span>4
+          </a>
         </li>
         <li>
           <a href="">
-            <span class="visuallyhidden">next set of pages</span
-            ><span aria-hidden="true">&raquo;</span>
+            <span class="visuallyhidden">następna strona</span>
+            <span aria-hidden="true">&raquo;</span>
           </a>
         </li>
       </ul>
