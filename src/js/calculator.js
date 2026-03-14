@@ -25,5 +25,5 @@ expenses.countryList.addEventListener('change', (event) => {
 });
 
 expenses.currencyList.addEventListener('change', (event) => {
-  expenses.updateExpensesSum();
+  expenses.updateSumElement();
 });
