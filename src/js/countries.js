@@ -32,6 +32,12 @@ function populateWithCountries(selectElement, getFullName = false) {
 
 function insertCountryCurrency(nameElement, symbolElement, codeElement, countryCode) {
   let fields = 'currencies'
+  if(countryCode === '') {
+    nameElement.value   = '-';
+    symbolElement.value = '';
+    codeElement.value   = '';
+    return;
+  }
 
   fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields)
   .then(response => {
