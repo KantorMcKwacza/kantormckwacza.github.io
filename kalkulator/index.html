@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
   <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
   <script defer src="/src/js/constants.js"></script>
   <script defer src="/src/js/expenses.js"></script>
   <script defer src="/src/js/countries.js"></script>
@@ -13,19 +15,28 @@
 </head>
 <body>
   <header>
-    <img src="" alt="logotyp">
-    <nav>
+    <a class="img-container" href="/"><img src="/assets/images/sknerus.png" alt="logotyp"></a>
+    <nav class="nav-desktop f-comic f-big">
+        <a class="nav-link-container" href="/"><span>Strona główna</span></a>
+        <a class="nav-link-container" href="/kalkulator"><span>Kalkulator podróży</span></a>
+        <a class="nav-link-container" href="/lista-krajow"><span>Listy Krajów</span></a>
+    </nav>
+    <input type="checkbox" id="nav-check">
+    <label for="nav-check" class="nav-button">
+      <i class="fas fa-bars"></i>
+    </label>
+    <nav class="nav-mobile f-comic f-big">
         <a href="/">Strona główna</a>
         <a href="/kalkulator">Kalkulator podróży</a>
-        <a href="#">Listy Krajow</a>
+        <a href="/lista-krajow">Listy Krajów</a>
     </nav>
   </header>
 
   <main>
     <section>
-      <h1>Kalkulator podróży</h1>
+      <h1 class="f-comic f-big">Kalkulator podróży</h1>
       <table id="expenses-table">
-        <thead>
+        <thead class="f-comic f-big">
           <tr>
             <th>Nr</th>
             <th>Kraj</th>
@@ -38,23 +49,25 @@
         </tbody>
         <tfoot>
           <tr id="new-expense" hidden>
-            <th colspan="5">
+            <th class="foreground-container" colspan="5">
               <form id="expense-form" method="post">
+                <button type="button" class="exit-button" onclick="expenses.hideExpenseForm()">x</button>
+                <h2>Nowy Wydatek</h2>
                 <select id="country" name="country" required>
-                  <option value="">--Wybierz Kraj--</option>
+                  <option value="">Wybierz Kraj</option>
                 </select>
                 <input type="text" id="name" name="name" placeholder="Nazwa Wydatku" required>
                 <input type="number" id="value" name="value" placeholder="Koszt Wydatku" required>
-                <input type="text" name="currencyName" id="currencyName" value="-" disabled></input>
-                <input type="text" name="currencySymbol" id="currencySymbol" value="" disabled hidden></input>
-                <input type="text" name="currencyCode" id="currencyCode" value="-" disabled hidden></input>
+                <input type="text" id="currencyName" name="currencyName" value="-" disabled>
+                <input type="text" id="currencySymbol" name="currencySymbol" value="" disabled hidden>
+                <input type="text" id="currencyCode" name="currencyCode" value="-" disabled hidden>
 
                 <button type="submit">Dodaj</button>
               </form>
             </th>
           </tr>
           <tr>
-            <th><button id="add-new-expense" onclick="expenses.showExpenseForm()">+</button></th>
+            <th><button onclick="expenses.showExpenseForm()">+</button></th>
             <th>Suma wydatków</th>
             <th id="sum-value" colspan="2">0</th>
             <th>
