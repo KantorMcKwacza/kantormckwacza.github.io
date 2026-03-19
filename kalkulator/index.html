@@ -6,6 +6,7 @@
   <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
   <link rel="stylesheet" href="/src/css/style.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+  <script defer src="/src/js/theme.js"></script>
   <script defer src="/src/js/constants.js"></script>
   <script defer src="/src/js/expenses.js"></script>
   <script defer src="/src/js/countries.js"></script>
@@ -17,10 +18,12 @@
   <header>
     <a class="img-container" href="/"><img src="/assets/images/sknerus.png" alt="logotyp"></a>
     <nav class="nav-desktop f-comic f-big">
-        <a class="nav-link-container" href="/"><span>Strona główna</span></a>
+        <!--<a class="nav-link-container" href="/"><span>Strona główna</span></a>-->
         <a class="nav-link-container" href="/kalkulator"><span>Kalkulator podróży</span></a>
         <a class="nav-link-container" href="/lista-krajow"><span>Listy Krajów</span></a>
     </nav>
+    <div class="space"></div>
+    <a class="img-container" href="javascript:void(0)" onclick="switchTheme()"><img id="theme-icon" src="/assets/images/theme-light.webp" alt="motyw strony"></a>
     <input type="checkbox" id="nav-check">
     <label for="nav-check" class="nav-button">
       <i class="fas fa-bars"></i>
@@ -36,7 +39,7 @@
     <section>
       <h1 class="f-comic f-big">Kalkulator podróży</h1>
       <table id="expenses-table">
-        <thead class="f-comic f-big">
+        <thead class="f-note f-big">
           <tr>
             <th>Nr</th>
             <th>Kraj</th>
@@ -45,27 +48,9 @@
             <th>Waluta</th>
           </tr>
         </thead>
-        <tbody id="expenses-table-body">
+        <tbody id="expenses-table-body" class="f-note">
         </tbody>
         <tfoot>
-          <tr id="new-expense" hidden>
-            <th class="foreground-container" colspan="5">
-              <form id="expense-form" method="post">
-                <button type="button" class="exit-button" onclick="expenses.hideExpenseForm()">x</button>
-                <h2>Nowy Wydatek</h2>
-                <select id="country" name="country" required>
-                  <option value="">Wybierz Kraj</option>
-                </select>
-                <input type="text" id="name" name="name" placeholder="Nazwa Wydatku" required>
-                <input type="number" id="value" name="value" placeholder="Koszt Wydatku" required>
-                <input type="text" id="currencyName" name="currencyName" value="-" disabled>
-                <input type="text" id="currencySymbol" name="currencySymbol" value="" disabled hidden>
-                <input type="text" id="currencyCode" name="currencyCode" value="-" disabled hidden>
-
-                <button type="submit">Dodaj</button>
-              </form>
-            </th>
-          </tr>
           <tr>
             <th><button onclick="expenses.showExpenseForm()">+</button></th>
             <th>Suma wydatków</th>
@@ -78,6 +63,24 @@
           </tr>
         </tfoot>
       </table>
+      <div id="new-expense" hidden>
+        <div class="foreground-container">
+          <form id="expense-form" method="post">
+            <button type="button" class="exit-button" onclick="expenses.hideExpenseForm()">x</button>
+            <h2>Nowy Wydatek</h2>
+            <select id="country" name="country" required>
+              <option value="">Wybierz Kraj</option>
+            </select>
+            <input type="text" id="name" name="name" placeholder="Nazwa Wydatku" required>
+            <input type="number" id="value" name="value" placeholder="Koszt Wydatku" required>
+            <input type="text" id="currencyName" name="currencyName" value="-" disabled>
+            <input type="text" id="currencySymbol" name="currencySymbol" value="" disabled hidden>
+            <input type="text" id="currencyCode" name="currencyCode" value="-" disabled hidden>
+
+            <button type="submit">Dodaj</button>
+          </form>
+        </div>
+      </div>
     </section>
   </main>
 
