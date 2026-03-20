@@ -29,7 +29,7 @@
       <i class="fas fa-bars"></i>
     </label>
     <nav class="nav-mobile f-comic f-big">
-        <a href="/">Strona główna</a>
+        <!--<a href="/">Strona główna</a>-->
         <a href="/kalkulator">Kalkulator podróży</a>
         <a href="/lista-krajow">Listy Krajów</a>
     </nav>
@@ -64,20 +64,22 @@
         </tfoot>
       </table>
       <div id="new-expense" hidden>
-        <div class="foreground-container">
-          <form id="expense-form" method="post">
-            <button type="button" class="exit-button" onclick="expenses.hideExpenseForm()">x</button>
+        <div class="foreground-container f-note">
+          <form id="expense-form" class="new-entry-form" method="post">
+            <button type="button" class="exit-button f-note" onclick="expenses.hideExpenseForm()">x</button>
             <h2>Nowy Wydatek</h2>
-            <select id="country" name="country" required>
+            <select id="country" class="new-entry-form-select f-note" name="country" required>
               <option value="">Wybierz Kraj</option>
             </select>
-            <input type="text" id="name" name="name" placeholder="Nazwa Wydatku" required>
-            <input type="number" id="value" name="value" placeholder="Koszt Wydatku" required>
-            <input type="text" id="currencyName" name="currencyName" value="-" disabled>
+            <input type="text" id="name" class="new-entry-form-input" name="name" placeholder="Nazwa Wydatku" required>
+            <div class="new-entry-form-value-container">
+              <input type="number" id="value" class="new-entry-form-input" name="value" placeholder="Koszt Wydatku" required>
+              <input type="text" id="currencyName" class="new-entry-form-output" name="currencyName" value="-" disabled>
+            </div>
             <input type="text" id="currencySymbol" name="currencySymbol" value="" disabled hidden>
             <input type="text" id="currencyCode" name="currencyCode" value="-" disabled hidden>
 
-            <button type="submit">Dodaj</button>
+            <button type="submit" class="new-entry-form-submit">Dodaj</button>
           </form>
         </div>
       </div>
