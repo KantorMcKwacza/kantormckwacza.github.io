@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
   <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+  <script defer src="/src/js/theme.js"></script>
   <script defer src="/src/js/constants.js"></script>
   <script defer src="/src/js/expenses.js"></script>
   <script defer src="/src/js/countries.js"></script>
@@ -13,19 +16,30 @@
 </head>
 <body>
   <header>
-    <img src="" alt="logotyp">
-    <nav>
-        <a href="/">Strona główna</a>
+    <a class="img-container" href="/"><img src="/assets/images/sknerus.png" alt="logotyp"></a>
+    <nav class="nav-desktop f-comic f-big">
+        <!--<a class="nav-link-container" href="/"><span>Strona główna</span></a>-->
+        <a class="nav-link-container" href="/kalkulator"><span>Kalkulator podróży</span></a>
+        <a class="nav-link-container" href="/lista-krajow"><span>Listy Krajów</span></a>
+    </nav>
+    <div class="space"></div>
+    <a class="img-container" href="javascript:void(0)" onclick="switchTheme()"><img id="theme-icon" src="/assets/images/theme-light.webp" alt="motyw strony"></a>
+    <input type="checkbox" id="nav-check">
+    <label for="nav-check" class="nav-button">
+      <i class="fas fa-bars"></i>
+    </label>
+    <nav class="nav-mobile f-comic f-big">
+        <!--<a href="/">Strona główna</a>-->
         <a href="/kalkulator">Kalkulator podróży</a>
-        <a href="#">Listy Krajow</a>
+        <a href="/lista-krajow">Listy Krajów</a>
     </nav>
   </header>
 
   <main>
     <section>
-      <h1>Kalkulator podróży</h1>
-      <table id="expenses-table">
-        <thead>
+      <h1 class="f-comic f-big">Kalkulator podróży</h1>
+      <table id="expenses-table" class="exp-table">
+        <thead class="f-note f-big">
           <tr>
             <th>Nr</th>
             <th>Kraj</th>
@@ -34,30 +48,14 @@
             <th>Waluta</th>
           </tr>
         </thead>
-        <tbody id="expenses-table-body">
+        <tbody id="expenses-table-body" class="f-note f-small">
         </tbody>
-        <tfoot>
-          <tr id="new-expense" hidden>
-            <th colspan="5">
-              <form id="expense-form" method="post">
-                <select id="country" name="country" required>
-                  <option value="">--Wybierz Kraj--</option>
-                </select>
-                <input type="text" id="name" name="name" placeholder="Nazwa Wydatku" required>
-                <input type="number" id="value" name="value" placeholder="Koszt Wydatku" required>
-                <input type="text" name="currencyName" id="currencyName" value="-" disabled></input>
-                <input type="text" name="currencySymbol" id="currencySymbol" value="" disabled hidden></input>
-                <input type="text" name="currencyCode" id="currencyCode" value="-" disabled hidden></input>
-
-                <button type="submit">Dodaj</button>
-              </form>
-            </th>
-          </tr>
+        <tfoot class="f-note">
           <tr>
-            <th><button id="add-new-expense" onclick="expenses.showExpenseForm()">+</button></th>
-            <th>Suma wydatków</th>
-            <th id="sum-value" colspan="2">0</th>
-            <th>
+            <th><button onclick="expenses.showExpenseForm()"><span>+</span></button></th>
+            <th class="f-normal">Suma wydatków:</th>
+            <th id="sum-value" class="f-normal">0</th>
+            <th class="f-note f-small">
               <select id="currency" name="currency" required>
                 <option value="PLN">polski złoty</option>
               </select>
@@ -65,6 +63,26 @@
           </tr>
         </tfoot>
       </table>
+      <div id="new-expense" hidden>
+        <div class="foreground-container f-note">
+          <form id="expense-form" class="new-entry-form" method="post">
+            <button type="button" class="exit-button f-note" onclick="expenses.hideExpenseForm()">x</button>
+            <h2>Nowy Wydatek</h2>
+            <select id="country" class="new-entry-form-select f-note" name="country" required>
+              <option value="">Wybierz Kraj</option>
+            </select>
+            <input type="text" id="name" class="new-entry-form-input" name="name" placeholder="Nazwa Wydatku" required>
+            <div class="new-entry-form-value-container">
+              <input type="number" id="value" class="new-entry-form-input" name="value" placeholder="Koszt Wydatku" required>
+              <input type="text" id="currencyName" class="new-entry-form-output" name="currencyName" value="-" disabled>
+            </div>
+            <input type="text" id="currencySymbol" name="currencySymbol" value="" disabled hidden>
+            <input type="text" id="currencyCode" name="currencyCode" value="-" disabled hidden>
+
+            <button type="submit" class="new-entry-form-submit">Dodaj</button>
+          </form>
+        </div>
+      </div>
     </section>
   </main>
 
