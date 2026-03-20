@@ -1,26 +1,50 @@
 :root {
-  --text-color:                   #0a1715;
-  --border-color:                 #0a1715;
+  --header-color-light:                 #e5c077;
+  --header-color-dark:                  #3F4F19;
+  --nav-desktop-text-color-light:       #091614;
+  --nav-desktop-text-color-dark:        #F5EFDC;
 
-  --background-color-dark:        #407489;
-  --background-color:             #3e8aa4;
-  --background-color-light:       #65a0a9;
-  --background-color-light-alt:   #adc7be;
-  --background-color-white:       #ded3c7;
-  --background-color-alt:         #e0b62f;
+  --nav-mobile-background-color-light:  rgba(255, 255, 255, 0.9);
+  --nav-mobile-text-color-light:        black;
+  --nav-mobile-hover-color-light:       #66aaff;
+  --nav-mobile-background-color-dark:   rgba(0, 0, 0, 0.9);
+  --nav-mobile-text-color-dark:         white;
+  --nav-mobile-hover-color-dark:        #0000ff;
 
-  --primary-color-dark:           #47762c;
-  --primary-color:                #56822b;
-  --primary-color-light:          #6b8622;
+  --table-background-color-dark:        #614a44;
+  --table-border-color-dark:            #807f87;
+  --table-inside-border-color-dark:     #b1ab96;
+  --table-text-color-dark:              #F5EFDC;
 
-  --secondary-color-dark-alt:     #72432f;
-  --secondary-color-dark:         #a64a2b;
-  --secondary-color:              #d9732b;
-  --secondary-color-light:        #debd2c;
-  --secondary-color-light-alt:    #e5c077;
+  --table-background-color-light:       #8DAF57;
+  --table-border-color-light:           #47762c;
+  --table-inside-border-color-light:    #253e17;
+  --table-text-color-light:             black;
 
-  --background-color-feature:     #614a44;
-  --feature-color:                #807f87;
+  --form-background-color-light:        #e5c077;
+  --form-border-color-light:            #a38855;
+  --form-text-color-light:              #091614;
+  --form-placeholder-color-light:       #493B27;
+  --form-background-color-dark:         #3F4F19;
+  --form-border-color-dark:             #232c0e;
+  --form-text-color-dark:               #F5EFDC;
+  --form-placeholder-color-dark:        #BDD57B;
 
-  --feature-color-alt:            #c1211e;
+  --higlight-verylow:                   light-dark(rgba(255, 255, 255, 0.2),
+                                                   rgba(  0,   0,   0, 0.2));
+  --higlight-low:                       light-dark(rgba(255, 255, 255, 0.3),
+                                                   rgba(  0,   0,   0, 0.3));
+  --higlight-medium:                    light-dark(rgba(255, 255, 255, 0.4),
+                                                   rgba(  0,   0,   0, 0.4));
+  --higlight-high:                      light-dark(rgba(255, 255, 255, 0.5),
+                                                   rgba(  0,   0,   0, 0.5));
+  --higlight-veryhigh:                  light-dark(rgba(255, 255, 255, 0.6),
+                                                   rgba(  0,   0,   0, 0.6));
+
+  /* ------------------------------------------ */
+  /*                  Unused                    */
+  --x-background-color-dark:            #212b4d;
+  --x-text-color-dark:                  #FAB300;
+  --x-border-color-dark:                #13192d;
+  /* ------------------------------------------ */
 }
