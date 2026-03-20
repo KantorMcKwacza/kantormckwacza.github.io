@@ -38,7 +38,7 @@
   <main>
     <section>
       <h1 class="f-comic f-big">Kalkulator podróży</h1>
-      <table id="expenses-table">
+      <table id="expenses-table" class="exp-table">
         <thead class="f-note f-big">
           <tr>
             <th>Nr</th>
@@ -48,14 +48,14 @@
             <th>Waluta</th>
           </tr>
         </thead>
-        <tbody id="expenses-table-body" class="f-note">
+        <tbody id="expenses-table-body" class="f-note f-small">
         </tbody>
-        <tfoot>
+        <tfoot class="f-note">
           <tr>
-            <th><button onclick="expenses.showExpenseForm()">+</button></th>
-            <th>Suma wydatków</th>
-            <th id="sum-value" colspan="2">0</th>
-            <th>
+            <th><button onclick="expenses.showExpenseForm()"><span>+</span></button></th>
+            <th class="f-normal">Suma wydatków:</th>
+            <th id="sum-value" class="f-normal">0</th>
+            <th class="f-note f-small">
               <select id="currency" name="currency" required>
                 <option value="PLN">polski złoty</option>
               </select>
