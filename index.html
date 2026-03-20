@@ -4,44 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
-  <link rel="stylesheet" href="/src/css/color.css">
   <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+  <script defer src="/src/js/theme.js"></script>
   <title>Kantor McKwacza</title>
 </head>
 <body>
-  <div class="container">
-    <div class="background-dark"></div>
-    <div class="background"></div>
-    <div class="background-light"></div>
-    <div class="background-light-alt"></div>
-    <div class="background-white"></div>
-    <div class="background-alt"></div>
-  </div>
-  <div class="container">
-    <div class="primary-dark"></div>
-    <div class="primary"></div>
-    <div class="primary-light"></div>
-  </div>
-  <div class="container">
-    <div class="secondary-dark-alt"></div>
-    <div class="secondary-dark"></div>
-    <div class="secondary"></div>
-    <div class="secondary-light"></div>
-    <div class="secondary-light-alt"></div>
-  </div>
-  <div class="container">
-    <div class="background-feature"></div>
-    <div class="feature"></div>
-  </div>
-  <div class="container">
-    <div class="feature-alt"></div>
-  </div>
-  <div class="container">
-    <div class="text text-light text-thick border-double">Text 1</div >
-    <div class="text  border">Text 2</div >
-    <div class="text text-light text-alt text-thick text-border-thick border-double">Text 3</div>
-  </div>
-  <p class="text">Paleta kolorów z obrazka ↓</p>
-  <img src="/assets/images/background_1.jpg" style="width: 100%;">
+  <header>
+    <a class="img-container" href="/"><img src="/assets/images/sknerus.png" alt="logotyp"></a>
+    <nav class="nav-desktop f-comic f-big">
+        <!--<a class="nav-link-container" href="/"><span>Strona główna</span></a>-->
+        <a class="nav-link-container" href="/kalkulator"><span>Kalkulator podróży</span></a>
+        <a class="nav-link-container" href="/lista-krajow"><span>Listy Krajów</span></a>
+    </nav>
+    <div class="space"></div>
+    <a class="img-container" href="javascript:void(0)" onclick="switchTheme()"><img id="theme-icon" src="/assets/images/theme-light.webp" alt="motyw strony"></a>
+    <input type="checkbox" id="nav-check">
+    <label for="nav-check" class="nav-button">
+      <i class="fas fa-bars"></i>
+    </label>
+    <nav class="nav-mobile f-comic f-big">
+        <!--<a href="/">Strona główna</a>-->
+        <a href="/kalkulator">Kalkulator podróży</a>
+        <a href="/lista-krajow">Listy Krajów</a>
+    </nav>
+  </header>
+  <main>
+    <section>
+    <h1></h1>
+    </section>
+  </main>
+
+  <footer>
+
+  </footer>
 </body>
 </html>
