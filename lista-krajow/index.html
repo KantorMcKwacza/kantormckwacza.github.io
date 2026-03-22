@@ -44,35 +44,15 @@
 
     </section>
     <nav aria-label="pagination" class="pagination-container">
-      <ul class="pagination">
+      <ul id="page-list" class="pagination">
         <li>
-          <a href="">
+          <a href="#" onclick="prevPage()">
             <span aria-hidden="true">&laquo;</span>
             <span class="visuallyhidden">poprzednia strona</span>
           </a>
         </li>
         <li>
-          <a href="?page=1">
-            <span class="visuallyhidden">strona </span>1
-          </a>
-        </li>
-        <li>
-          <a href="?page=2" aria-current="page">
-            <span class="visuallyhidden">strona </span>2
-          </a>
-        </li>
-        <li>
-          <a href="?page=3">
-            <span class="visuallyhidden">strona </span>3
-          </a>
-        </li>
-        <li>
-          <a href="?page=4">
-            <span class="visuallyhidden">strona </span>4
-          </a>
-        </li>
-        <li>
-          <a href="">
+          <a href="#" onclick="nextPage()">
             <span class="visuallyhidden">następna strona</span>
             <span aria-hidden="true">&raquo;</span>
           </a>
