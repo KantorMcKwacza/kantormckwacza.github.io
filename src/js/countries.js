@@ -1,5 +1,5 @@
 
-async function populateWithCountries(selectElement, childType, getFullName = false) {
+async function populateWithCountries(selectElement, childType, getFullName = false, useIdAsValue = false) {
   let fields = 'cca3,flag,name,currencies,translations'
 
   return await fetch(countriesApiUrl + withThose + fields)
@@ -19,7 +19,10 @@ async function populateWithCountries(selectElement, childType, getFullName = fal
       let flag = country.flag;
 
       let child = document.createElement(childType);
-      child.value = name;
+      if(useIdAsValue)
+        child.id = child.id + ' /' + name;
+      else
+        child.value = name;
       child.innerText = flag + ' ' + visibleName;
 
       selectElement.appendChild(child);
@@ -59,4 +62,26 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
   .catch(error => {
     console.error('Error:', error);
   });
+}
+
+async function getCountryDetails(countryCode) {
+  let fields = 'capital,borders,area,maps,population,car,timezones,continents,currencies,languages,flags,translations';
+
+    return await fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(responseData => {
+      if(responseData === undefined) {
+        console.warn('Invalid or missing country code!');
+      } else {
+        return responseData;
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 }

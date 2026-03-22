@@ -6,6 +6,7 @@ const exchangeDirection = {
 }
 
 const countriesPerPage = 10;
+const pagesDisplayed   = 5;
 
 const EXPENSECOUNT = 'ecount';
 const EXPENSESUM   = 'esum';
