@@ -106,4 +106,12 @@ async function showCountry() {
 
 function hideCountry() {
   countrySection.hidden = 'hidden';
+  const url = new URL(window.location.href);
+  const params = url.searchParams;
+  console.log(params);
+  if(params.has('country')) {
+    params.delete('country');
+    url.search = params.toString();
+    window.location.href = url.toString();
+  }
 }
