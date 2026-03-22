@@ -10,6 +10,7 @@
   <script defer src="/src/js/theme.js"></script>
   <script defer src="/src/js/constants.js"></script>
   <script defer src="/src/js/countries.js"></script>
+  <script defer src="/src/js/pagination.js"></script>
   <script defer src="/src/js/country_list.js"></script>
   <title>Kantor Sknerusa McKwacza</title>
 </head>
@@ -40,8 +41,58 @@
       <ul id="country-list">
       </ul>
     </section>
-    <section id="country-details">
-
+    <section id="country-details" hidden>
+      <button type="button" class="exit-button f-note" onclick="hideCountry()">x</button>
+      <article>
+        <h2 id="country-name"></h2>
+        <table>
+          <tbody>
+            <tr>
+              <td rowspan="3" colspan="3">
+                <img id="flag-img">
+              </td>
+              <th>Stolica</th>
+              <td id="capital"></td>
+            </tr>
+            <tr>
+              <th>Powierzchnia</th>
+              <td id="area"></td>
+            </tr>
+            <tr>
+              <th>Populacja</th>
+              <td id="population"></td>
+            </tr>
+            <tr>
+              <td rowspan="3">
+                <details id="borders">
+                  <summary>Kraje graniczące</summary>
+                </details>
+              </td>
+              <td rowspan="3">
+                <details id="languages">
+                  <summary>Języki</summary>
+                </details>
+              </td>
+              <td rowspan="3">
+                <details id="dt-currencies">
+                  <summary>Waluty</summary>
+                </details>
+              </td>
+              <th>Kontynenty</th>
+              <td id="continents">-</td>
+            </tr>
+            <tr>
+              <th>Strefy czasowe</th>
+              <td id="timezones"></td>
+            </tr>
+            <tr>
+              <th>Ruch drogowy</th>
+              <td id="road-side"></td>
+            </tr>
+          </tbody>
+        </table>
+        <a id="map-link" href="https://www.openstreetmap.org">Link do mapy</a>
+      </article>
     </section>
     <nav aria-label="pagination" class="pagination-container">
       <ul id="page-list" class="pagination">
