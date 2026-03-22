@@ -1,0 +1,272 @@
+.exp-table {
+  color: light-dark(var(--table-text-color-light), var(--table-text-color-dark));
+  background-color: light-dark(var(--table-background-color-light), var(--table-background-color-dark));
+  border-style: double;
+  border-width: 14px;
+  border-color: light-dark(var(--table-border-color-light), var(--table-border-color-dark));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  table-layout: fixed;
+
+  border-radius: 15px;
+  width: max-content;
+  min-width: 80vw;
+  max-width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5vh;
+
+  thead, tfoot {
+    background-color: var(--higlight-medium);
+  }
+  tfoot {
+    display: flex;
+    width: 100%;
+    tr {
+      display: inherit;
+      width: 100%;
+      padding: 1vw;
+      align-items: center;
+    }
+    tr th {
+      display: inherit;
+      justify-content: center;
+      width: 100%;
+    }
+    tr th:nth-child(1) {
+      width: 4rem;
+      height: 4rem;
+      min-width: 4rem;
+      button {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 15px;
+        font-weight: 900;
+        font-size: 2rem;
+        background-color: var(--higlight-verylow);
+        align-items: center;
+        justify-content: center;
+      }
+      button:hover {
+        background-color: var(--higlight-medium);
+      }
+      button:active {
+        background-color: var(--higlight-veryhigh);
+      }
+    }
+    tr th:nth-child(2) {
+      width: min-content;
+      min-width: min-content;
+      margin: 0.5rem;
+      white-space: nowrap;
+    }
+    tr th:nth-child(3) {
+      width: min-content;
+      max-width: 100%;
+      margin-right: 0.5rem;
+      justify-content: flex-start;
+      flex-grow: 1;
+    }
+    tr th:nth-child(4) {
+      flex-grow: 2;
+      select {
+        width: 100%;
+        padding: 0.2rem;
+        font: inherit;
+        color: inherit;
+        border: 0.2rem solid light-dark(var(--table-border-color-light), var(--table-border-color-dark));
+        border-radius: 10px;
+        background: transparent;
+        outline: none;
+        text-overflow: ellipsis;
+        option {
+          font: inherit;
+          color: inherit;
+          outline: none;
+          background-color: light-dark(var(--table-background-color-light), var(--table-background-color-dark));
+        }
+      }
+    }
+  }
+  tfoot tr {
+    display: flex;
+  }
+  thead, tbody {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    border-bottom: 0.2rem solid light-dark(var(--table-inside-border-color-light), var(--table-inside-border-color-dark));
+    tr {
+      display: flex;
+      width: 100%;
+      height: clamp(6rem, 12vw, 9rem);
+    }
+    tr:nth-child(even) {
+      background-color: var(--higlight-verylow);
+    }
+    tr th {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-right: 2px solid light-dark(var(--table-inside-border-color-light), var(--table-inside-border-color-dark));
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+    }
+    tr th:nth-last-child(-n + 1) {
+      border-right: none;
+    }
+    tr th:nth-child(1) {
+      flex-basis: 8%;
+    }
+    tr th:nth-child(2) {
+      flex-basis: 22%;
+    }
+    tr th:nth-child(3) {
+      flex-basis: 30%;
+    }
+    tr th:nth-child(4) {
+      flex-basis: 20%;
+      overflow-x: hidden;
+    }
+    tr th:nth-child(5) {
+      flex-basis: 20%;
+    }
+  }
+  tbody tr {
+    height: clamp(4rem, 12vw, 9rem);
+  }
+}
+
+.foreground-container {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.new-entry-form {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 60vw;
+  max-width: 90vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  padding-bottom: 3rem;
+
+  color: light-dark(var(--form-text-color-light), var(--form-text-color-dark));
+  font-size: clamp(1rem, 2vw, 1.6rem);
+
+  border: 14px double;
+  border-radius: 15px;
+  background-color: light-dark(var(--form-background-color-light), var(--form-background-color-dark));
+  border-color: light-dark(var(--form-border-color-light), var(--form-border-color-dark));
+
+}
+
+.new-entry-form-select {
+  margin: 0.8rem;
+  margin-bottom: 0.4rem;
+  padding: 0.2rem;
+  font-size: inherit;
+  color: inherit;
+  border: 0.2rem solid light-dark(var(--form-border-color-light), var(--form-border-color-dark));
+  border-radius: 10px;
+  background: transparent;
+  outline: none;
+  text-overflow: ellipsis;
+  option {
+    font-family: inherit;
+    color: inherit;
+    outline: none;
+    background-color: light-dark(var(--form-background-color-light), var(--form-background-color-dark));
+  }
+}
+
+.new-entry-form-value-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.new-entry-form-input, .new-entry-form-output, .new-entry-form-submit {
+  width: auto;
+  margin: 0.8rem;
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  padding: 0.2rem;
+  padding-left: 0.4rem;
+  background: transparent;
+  outline: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  border: 0.2rem solid light-dark(var(--form-border-color-light), var(--form-border-color-dark));
+  border-radius: 10px;
+}
+.new-entry-form-input {
+  box-shadow: inset 0 0 0 1000px var(--higlight-verylow);
+}
+.new-entry-form-output {
+  margin-left: 0;
+  text-overflow: ellipsis;
+  flex-grow: 2;
+}
+.new-entry-form-submit {
+  width: auto;
+  margin: auto;
+  margin-top: 0.8rem;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: light-dark(var(--form-border-color-light), var(--form-border-color-dark));
+  cursor: pointer;
+}
+.new-entry-form-submit:hover {
+  box-shadow: inset 0 0 0 1000px var(--higlight-verylow);
+}
+.new-entry-form-input::placeholder {
+  color: light-dark(var(--form-placeholder-color-light), var(--form-placeholder-color-dark));
+  opacity: 1;
+}
+
+.exit-button {
+  display: flex;
+  position: relative;
+  top: 0;
+  left: calc(100% - var(--exit-button-total-size));
+  width: var(--exit-button-size);
+  height: var(--exit-button-size);
+  padding: 0;
+  margin: var(--exit-button-margin);
+
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  line-height: calc(var(--exit-button-size) - 0.6rem);
+  text-align: center;
+  justify-content: center;
+  color: light-dark(black, white);
+  font-weight: 800;
+  font-size: var(--exit-button-size);
+}
+.exit-button:hover {
+  color: light-dark(red, red);
+}
+.exit-button:active {
+  color: light-dark(darkred, darkred);
+}
