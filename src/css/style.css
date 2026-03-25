@@ -152,7 +152,7 @@ main {
   justify-content: center;
   align-items: top;
   height: var(--main-height);
-
+  flex-direction: column;
   box-shadow: inset 0 0 0 1000px rgba(0,0,0,.6);
   background-image: url('/assets/images/bg_landscape.webp');
   background-repeat: no-repeat;
