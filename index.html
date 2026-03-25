@@ -22,7 +22,7 @@
   <header>
     <a class="img-container" href="/"><img src="/assets/images/sknerus.png" alt="logotyp"></a>
     <nav class="nav-desktop f-comic f-big">
-        <!--<a class="nav-link-container" href="/"><span>Strona główna</span></a>-->
+        <a class="nav-link-container" href="/"><span>Strona główna</span></a>
         <a class="nav-link-container" href="/kalkulator"><span>Kalkulator podróży</span></a>
         <a class="nav-link-container" href="/lista-krajow"><span>Listy Krajów</span></a>
     </nav>
@@ -47,8 +47,8 @@
         <div class="input-group">
           <label for="amount" style="display:none;">Kwota</label>
           <input type="number" id="amount" name="amount" class="top-input" placeholder="Wpisz kwotę" required>
-          <select id="origin" name="origin" required>
-            <option value="">--Wybierz Kraj--</option>
+          <select id="origin" class= "input-group-select" name="origin" required>
+            <option value="">Wybierz Kraj</option>
           </select>
         </div>
   
@@ -56,8 +56,8 @@
   
         <div class="input-group">
           <output id="result" name="result" for="amount" class="bottom-input">0.00</output>
-          <select id="target" name="target" required>
-            <option value="">--Wybierz Kraj--</option>
+          <select id="target" class= "input-group-select" name="target" required>
+            <option value="">Wybierz Kraj</option>
           </select>
         </div>
   
