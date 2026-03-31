@@ -8,7 +8,9 @@ let theme = 'light dark';
 
 loadTheme();
 
-
+/**
+ * Przełącza motyw.
+ */
 function switchTheme() {
   if(theme === 'light') {
     theme = 'dark';
@@ -26,6 +28,9 @@ function switchTheme() {
   document.documentElement.style.setProperty("color-scheme", theme);
 }
 
+/**
+ * Wczytuje i ustawia zapisany motyw z `localStorage`.
+ */
 function loadTheme() {
   let loadedTheme = localStorage.getItem('theme');
   if(loadedTheme !== 'dark' && loadedTheme !== 'light' && loadedTheme !== 'light dark') {
@@ -38,10 +43,16 @@ function loadTheme() {
   document.documentElement.style.setProperty("color-scheme", theme);
 }
 
+/**
+ * Zapisuje aktualny motyw do `localStorage`.
+ */
 function saveTheme() {
   localStorage.setItem('theme', theme);
 }
 
+/**
+ * Przełącza ikonę motywu.
+ */
 function switchThemeIcon() {
   if(theme === 'light') {
     themeIcon.src = themeIconUrlLight;

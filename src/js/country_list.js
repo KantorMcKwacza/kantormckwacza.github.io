@@ -3,6 +3,7 @@ const countryList    = document.getElementById('country-list');
 const pageList       = document.getElementById('page-list');
 const countrySection = document.getElementById('country-details');
 
+// Elementy do których wpisywane są informacje o wybranym kraju
 const cName       = document.getElementById('country-name');
 const cFlag       = document.getElementById('flag-img');
 const cCapital    = document.getElementById('capital');
@@ -23,7 +24,11 @@ getParameters();
 paginateList();
 showCountry();
 
-
+/**
+ * Przetwarza parametry url.
+ * - `country=[kod kraju]` zapisuje pod zmienną `currentCountry`
+ * - `page=[numer strony]` zapisuje pod zmienną `currentPage`
+ */
 function getParameters() {
   let urlString = window.location.href;
   let paramString = urlString.split('?')[1];
@@ -45,6 +50,13 @@ function getParameters() {
   }
 }
 
+/**
+ * Zmienia widoczność elementu prezentującego wybrany kraj oraz wypełnia go pozyskanymi danymi.
+ *
+ * Wykorzystuje funkcję {@link getCountryDetails} do pozyskania danych.
+ *
+ * @see {@link getCountryDetails}
+ */
 async function showCountry() {
   if(currentCountry === undefined) {
     countrySection.hidden = 'hidden';
@@ -104,6 +116,9 @@ async function showCountry() {
   countrySection.removeAttribute('hidden');
 }
 
+/**
+ * Ukrywa element prezentujący wybrany kraj oraz usuwa parametr country z url.
+ */
 function hideCountry() {
   countrySection.hidden = 'hidden';
   const url = new URL(window.location.href);

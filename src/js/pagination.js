@@ -1,4 +1,13 @@
-
+/**
+ * Zapełnia listę krajów i tworzy paginację strony.
+ *
+ * Wywołuje kolejno funkcje:
+ * @see {@link populateWithCountries}
+ * @see {@link createPagesList}
+ * @see {@link linkifyList}
+ * @see {@link displayPageList}
+ * @see {@link displayPage}
+ */
 async function paginateList() {
   await populateWithCountries(countryList, 'li', true, true);
   createPagesList();
@@ -8,6 +17,24 @@ async function paginateList() {
   displayPage(currentPage);
 }
 
+/**
+ * Konwertuje zawartość elementów listy na elementy zawierające link
+ *
+ * @example
+ * `
+ * <li id="... /POL">
+ *  Polska
+ * </li>
+ * `
+ *             ↓↓↓
+ * `
+ * <li id="... /POL">
+ *  <a href="?country=POL">Polska</a>
+ * </li>
+ * `
+ *
+ * @param {HTMLUListElement} list Element listy
+ */
 function linkifyList(list) {
   const listElements = Array.from(list.getElementsByTagName('li'));
 
@@ -30,13 +57,29 @@ function linkifyList(list) {
   });
 }
 
+/**
+ * Zmienia stronę na następną
+ * @see {@link switchPageRelative}
+ */
 function nextPage() {
   switchPageRelative(1);
 }
+/**
+ * Zmienia stronę na poprzednią
+ * @see {@link switchPageRelative}
+ */
 function prevPage() {
   switchPageRelative(-1);
 }
 
+/**
+ * Zmienia stronę o `pageShift` stron, relatywnie do aktualnej.
+ *
+ * @example
+ * //Aktualna strona: 5
+ * switchPageRelative(-3);
+ * //Aktualna strona: 2
+ */
 function switchPageRelative(pageShift) {
   if(isNaN(pageShift)) {
     console.warn("Warning:", "Invalid page shift!");
@@ -81,6 +124,11 @@ function switchPageRelative(pageShift) {
 }
 
 
+/**
+ * Tworzy listę elementów paginacji zależnie od liczby stron.
+ *
+ * @see {@link createPage}
+ */
 function createPagesList() {
   const countriesNumber = countryList.getElementsByTagName('li').length;
 
@@ -99,6 +147,11 @@ function createPagesList() {
   pageList.appendChild(nextPage);
 }
 
+/**
+ * Tworzy element paginacji o numerze `pageNumber`.
+ *
+ * @param {number} pageNumber Numer strony do której przenosi stworzony element
+ */
 function createPage(pageNumber) {
   if(isNaN(pageNumber)) {
     console.warn("Warning:", "pageNumber is not a number!");
@@ -121,6 +174,11 @@ function createPage(pageNumber) {
   return li;
 }
 
+/**
+ * Ogranicza widoczność elementów paginacji do `pagesDisplayed`.
+ *
+ * @param {number} page Numer aktualnej strony
+ */
 function displayPageList(page) {
   const pageElements = Array.from(pageList.getElementsByTagName('li'));
   const lastPage  = pageElements.length - 1;
@@ -151,6 +209,11 @@ function displayPageList(page) {
   });
 }
 
+/**
+ * Ogranicza widoczność elementów listy krajów do `countriesPerPage` zależnie od aktualnej strony.
+ *
+ * @param {number} page Numer aktualnej strony
+ */
 function displayPage(page) {
   const countryElements = Array.from(countryList.getElementsByTagName('li'));
   const startIndex = (page - 1) * countriesPerPage;
