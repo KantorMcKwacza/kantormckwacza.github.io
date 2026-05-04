@@ -1,4 +1,3 @@
-
 const expenses = new Expenses();
 
 expenses.loadLocalStorage();
