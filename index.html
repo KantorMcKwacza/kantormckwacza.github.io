@@ -40,6 +40,9 @@
   </header>
 
   <main>
+    <p class="description">
+      Nawet Sknerus McKwacz dba o to, żebyś wiedział ile płacisz. Przelicz walutę przed wizytą — zero ukrytych kosztów.
+    </p>
     <section class="table">
       <form id="calc-form" class="main-form">
         <h1 class="form-h1">Przelicznik walut</h1>
@@ -52,7 +55,7 @@
           </select>
         </div>
   
-        <button type="submit" class="change"><span class="material-symbols-outlined">swap_horiz</span></button>
+        <button type="submit" class="change" onclick="switchOriginTarget()"><span class="material-symbols-outlined">swap_horiz</span></button>
   
         <div class="input-group">
           <output id="result" name="result" for="amount" class="bottom-input">0.00</output>
