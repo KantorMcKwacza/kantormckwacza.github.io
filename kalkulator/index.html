@@ -66,16 +66,18 @@
         </tfoot>
       </table>
       <div id="new-expense" hidden>
+        
         <div class="foreground-container f-note">
           <form id="expense-form" class="new-entry-form" method="post">
             <button type="button" class="exit-button f-note" onclick="expenses.hideExpenseForm()">x</button>
             <h2>Nowy Wydatek</h2>
+            <div id="currency-warning" class="f-note" style="color: #ff4d4d; font-size: 0.9rem; margin-bottom: 10px; text-align: center;" hidden></div>
             <select id="country" class="new-entry-form-select f-note" name="country" required>
               <option value="">Wybierz Kraj</option>
             </select>
-            <input type="text" id="name" class="new-entry-form-input" name="name" placeholder="Nazwa Wydatku" required>
+            <input type="text" id="name" class="new-entry-form-input" name="name" placeholder="Nazwa Wydatku (max 40)" maxlength="40" required>
             <div class="new-entry-form-value-container">
-              <input type="number" id="value" class="new-entry-form-input" name="value" placeholder="Koszt Wydatku" required>
+            <input type="number" id="value" class="new-entry-form-input" name="value" placeholder="Koszt Wydatku" max="999999999" oninput="if(this.value.length > 9) this.value = this.value.slice(0, 9);"required>
               <input type="text" id="currencyName" class="new-entry-form-output" name="currencyName" value="-" disabled>
             </div>
             <input type="text" id="currencySymbol" name="currencySymbol" value="" disabled hidden>

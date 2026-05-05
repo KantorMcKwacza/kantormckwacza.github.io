@@ -270,3 +270,44 @@
 .exit-button:active {
   color: light-dark(darkred, darkred);
 }
+
+
+
+#expenses-table-body tr.no-currency {
+  
+  background-color: rgba(255, 77, 77, 0.2) !important;
+ 
+  border-left: 6px solid #ff4d4d !important;
+  box-sizing: border-box;
+}
+
+
+#expenses-table-body tr.no-currency th {
+  color: #ff4d4d !important;
+  
+  border-color: rgba(255, 77, 77, 0.3) !important;
+}
+
+#expenses-table-body tr.no-currency th:nth-child(4) {
+  flex-direction: column; 
+  justify-content: center;
+  text-decoration: line-through !important;
+}
+
+#expenses-table-body tr.no-currency th:nth-child(4)::after {
+  content: "brak";
+  display: block;
+
+  text-decoration: none !important; 
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-top: 2px;
+ 
+  line-height: 1;
+}
+
+.exp-table {
+
+  border-spacing: 0;
+}

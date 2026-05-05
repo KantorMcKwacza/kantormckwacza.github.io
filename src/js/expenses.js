@@ -1,10 +1,10 @@
 class Expenses {
   #expensesTableBody = document.getElementById('expenses-table-body');
-  #newExpense        = document.getElementById('new-expense');
-  #expenseForm       = document.getElementById('expense-form');
-  #sumValue          = document.getElementById('sum-value');
-  #currencyList      = document.getElementById('currency');
-  #countryList       = this.#expenseForm.country;
+  #newExpense         = document.getElementById('new-expense');
+  #expenseForm        = document.getElementById('expense-form');
+  #sumValue           = document.getElementById('sum-value');
+  #currencyList       = document.getElementById('currency');
+  #countryList        = this.#expenseForm.country;
 
   #currentExpenseNumber = 1;
   #expensesSumInPLN     = 0;
@@ -24,8 +24,9 @@ class Expenses {
     let id       = this.#currentExpenseNumber;
     let selId    = this.#countryList.selectedIndex;
     let country  = this.#countryList.options[selId].text;
-    let name     = this.#expenseForm.name.value;
-    let value    = this.#expenseForm.value.valueAsNumber;
+    let name     = this.#expenseForm.name.value.substring(0, 40);
+    let rawValue = this.#expenseForm.value.valueAsNumber;
+    let value    = rawValue > 999999999 ? 999999999 : rawValue;
     let symbol   = this.#expenseForm.currencySymbol.value;
     let currency = this.#expenseForm.currencyName.value;
     let code     = this.#expenseForm.currencyCode.value;
@@ -44,7 +45,7 @@ class Expenses {
     this.#currentExpenseNumber += 1;
   }
 
-  createExpenseEntryElement() {
+  createExpenseEntryElement(isNotAvailable = false) {
     let tr         = document.createElement('tr');
     let thNum      = document.createElement('th');
     let thCountry  = document.createElement('th');
@@ -52,10 +53,20 @@ class Expenses {
     let thValue    = document.createElement('th');
     let thCurrency = document.createElement('th');
 
+    if (isNotAvailable) {
+      tr.classList.add('no-currency');
+    }
+
     thNum.innerText      = this.#expenseEntry.id;
     thCountry.innerText  = this.#expenseEntry.country;
     thName.innerText     = this.#expenseEntry.name;
-    thValue.innerText    = this.#expenseEntry.value + ' ' + this.#expenseEntry.symbol;
+    
+    if (isNotAvailable) {
+      thValue.innerText = "";
+    } else {
+      thValue.innerText = this.#expenseEntry.value + ' ' + this.#expenseEntry.symbol;
+    }
+    
     thCurrency.innerText = this.#expenseEntry.currency;
 
     tr.appendChild(thNum);
@@ -102,7 +113,9 @@ class Expenses {
       let entry = localStorage.getItem(EXPENSEBASE + i);
       this.#expenseEntry = JSON.parse(entry);
       this.#expensesList[i] = this.#expenseEntry;
-      this.createExpenseEntryElement();
+      
+      const entryNotAvailable = this.#expenseEntry.code === 'N/A' || this.#expenseEntry.code === '-';
+      this.createExpenseEntryElement(entryNotAvailable);
     }
   }
 
