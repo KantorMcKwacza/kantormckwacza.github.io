@@ -1,5 +1,3 @@
-const { text } = require("express");
-
 class UIComponent {
     constructor(tag, props = {}, children = []) {
         this.element = document.createElement(tag);
@@ -7,15 +5,16 @@ class UIComponent {
         this.children = children;
         this.init();
     }
-    
+
     init() {
         if (this.props.text) this.element.textContent = this.props.text;
-
         if (this.props.className) this.element.className = this.props.className;
-        
+
+        if (this.props.id) this.element.id = this.props.id;
+
         if (this.props.attrs) {
             for (let [key, value] of Object.entries(this.props.attrs)) {
-                if (key.startsWith('on')) {
+                if (key.startsWith('on') && typeof value === 'function') {
                     this.element.addEventListener(key.substring(2).toLowerCase(), value);
                 } else {
                     this.element.setAttribute(key, value);
@@ -28,6 +27,8 @@ class UIComponent {
                 this.element.appendChild(child.element);
             } else if (child instanceof HTMLElement) {
                 this.element.appendChild(child);
+            } else if (typeof child === 'string') {
+                this.element.appendChild(document.createTextNode(child));
             }
         });
     }
@@ -38,12 +39,13 @@ class UIComponent {
 }
 
 class PageManager {
-    static init() {
+    static initHead() {
         const head = document.head;
+        document.title = "Kantor Sknerusa McKwacza";
 
         const favicon = document.createElement('link');
         favicon.rel = 'icon';
-        favicon.href = '/assets/images/favicon.ico'
+        favicon.href = '/assets/images/favicon.ico';
         head.appendChild(favicon);
 
         const styles = [
@@ -62,7 +64,9 @@ class PageManager {
             link.href = href;
             head.appendChild(link);
         });
+    }
 
+    static loadScripts() {
         const scripts = [
             '/src/js/theme.js', '/src/js/constants.js',
             '/src/js/countries.js', '/src/js/exchange.js', '/src/js/currencies.js'
@@ -72,28 +76,27 @@ class PageManager {
             const script = document.createElement('script');
             script.src = src;
             script.defer = true;
-            head.appendChild(script);
-        })
-
-        document.title = "Kantor Sknerusa McKwacza";
+            script.async = false;
+            document.body.appendChild(script);
+        });
     }
 }
 
-class Header extends UIComponent{
+class Header extends UIComponent {
     constructor() {
         super('header', {}, [
             new UIComponent('a', { className: 'img-container', attrs: { href: '/' } }, [
                 new UIComponent('img', { attrs: { src: '/assets/images/sknerus.png', alt: 'logotyp' } })
             ]),
-            new UIComponent('nac', { className: 'nav-desktop f-comic f-big' }, [
-                this.createNavLink('/', 'Strona główna'),
-                this.createNavLink('/kalkulator', 'Kalkulator podróży'),
-                this.createNavLink('/lista-krajow', 'Listy Krajów')
+            new UIComponent('nav', { className: 'nav-desktop f-comic f-big' }, [
+                Header.createNavLink('/', 'Strona główna'),
+                Header.createNavLink('/kalkulator', 'Kalkulator podróży'),
+                Header.createNavLink('/lista-krajow', 'Listy Krajów')
             ]),
             new UIComponent('div', { className: 'space' }),
             new UIComponent('a', {
                 className: 'img-container',
-                attrs: { href: 'javascript:void(0)', onclick: () => window.switchTheme?.() }
+                attrs: { href: 'javascript:void(0)', onclick: 'switchTheme()' }
             }, [
                 new UIComponent('img', { id: 'theme-icon', attrs: { src: '/assets/images/theme-light.webp', alt: 'motyw strony' } })
             ]),
@@ -109,23 +112,23 @@ class Header extends UIComponent{
         ]);
     }
 
-    static createNavLink(href,text) {
+    static createNavLink(href, text) {
         return new UIComponent('a', { className: 'nav-link-container', attrs: { href: href } }, [
             new UIComponent('span', { text: text })
         ]);
     }
 }
 
-class MainContent extends UIComponent{
+class MainContent extends UIComponent {
     constructor() {
         super('main', {}, [
             new UIComponent('p', { className: 'description', text: 'Nawet Sknerus McKwacz dba o to, żebyś wiedział ile płacisz. Przelicz walutę przed wizytą — zero ukrytych kosztów.' }),
             new UIComponent('section', { className: 'table' }, [
                 new UIComponent('form', { id: 'calc-form', className: 'main-form' }, [
                     new UIComponent('h1', { className: 'form-h1', text: 'Przelicznik walut' }),
-                    
+
                     new UIComponent('div', { className: 'input-group' }, [
-                        new UIComponent('label', { attrs: { for: 'amount' }, text: 'Kwota', className: 'v-hidden' }),
+                        new UIComponent('label', { attrs: { for: 'amount', style: 'display:none;' }, text: 'Kwota' }),
                         new UIComponent('input', { id: 'amount', className: 'top-input', attrs: { type: 'number', name: 'amount', placeholder: 'Wpisz kwotę', required: true } }),
                         new UIComponent('select', { id: 'origin', className: 'input-group-select', attrs: { name: 'origin', required: true } }, [
                             new UIComponent('option', { text: 'Wybierz Kraj', attrs: { value: '' } })
@@ -134,19 +137,26 @@ class MainContent extends UIComponent{
 
                     new UIComponent('button', {
                         className: 'change',
-                        attrs: { type: 'submit', onclic: (e) => { e.preventDefault(); window.switchOriginTarget?.(); } }
+                        attrs: { type: 'submit', onclick: 'switchOriginTarget()' }
                     }, [
+                        new UIComponent('span', { className: 'material-symbols-outlined', text: 'swap_horiz' })
+                    ]),
 
-                        new UIComponent('div', { className: 'input-group' }, [
-                            new UIComponent('output', { id: 'result', className: 'bottom-input', text: '0.00', attrs: { for: 'amount', name: 'result' } }),
-                            new UIComponent('select', { id: 'target', className: 'input-group-select', attrs: { name: 'target', required: true } }, [
-                                new UIComponent('option', { text:'Wybierz Kraj', attrs: {value: ''}})
-                            ])
+                    new UIComponent('div', { className: 'input-group' }, [
+                        new UIComponent('output', { id: 'result', className: 'bottom-input', text: '0.00', attrs: { for: 'amount', name: 'result' } }),
+                        new UIComponent('select', { id: 'target', className: 'input-group-select', attrs: { name: 'target', required: true } }, [
+                            new UIComponent('option', { text: 'Wybierz Kraj', attrs: { value: '' } })
                         ])
                     ])
                 ])
             ])
-        ])
+        ]);
+    }
+}
+
+class Footer extends UIComponent {
+    constructor() {
+        super('footer');
     }
 }
 
@@ -157,6 +167,22 @@ class App extends UIComponent {
     }
 
     initLayout() {
-        const header
+        const header = new Header();
+        const main = new MainContent();
+        const footer = new Footer();
+
+        this.children = [header, main, footer];
+
+        this.element.appendChild(header.element);
+        this.element.appendChild(main.element);
+        this.element.appendChild(footer.element);
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    PageManager.initHead();
+
+    const app = new App();
+    app.mount(document.body);
+    PageManager.loadScripts();
+});
