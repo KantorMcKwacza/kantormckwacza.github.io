@@ -29,6 +29,11 @@
 }
 
 @media screen and (width < 800px) {
+  .main-form {
+    width: 100%;
+    border-left: none;
+    border-right: none;
+  }
   .nav-desktop {
     display: none;
   }
