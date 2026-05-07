@@ -1,3 +1,5 @@
+const { text } = require("express");
+
 class UIComponent {
     constructor(tag, props = {}, children = []) {
         this.element = document.createElement(tag);
@@ -10,7 +12,7 @@ class UIComponent {
         if (this.props.text) this.element.textContent = this.props.text;
 
         if (this.props.className) this.element.className = this.props.className;
-
+        
         if (this.props.attrs) {
             for (let [key, value] of Object.entries(this.props.attrs)) {
                 if (key.startsWith('on')) {
@@ -70,7 +72,7 @@ class PageManager {
             const script = document.createElement('script');
             script.src = src;
             script.defer = true;
-            this.head.appendChild(script);
+            head.appendChild(script);
         })
 
         document.title = "Kantor Sknerusa McKwacza";
@@ -108,9 +110,43 @@ class Header extends UIComponent{
     }
 
     static createNavLink(href,text) {
-        return new UIComponent('a', { className: 'nav-link-container', atrrs: { href: href } }, [
+        return new UIComponent('a', { className: 'nav-link-container', attrs: { href: href } }, [
             new UIComponent('span', { text: text })
         ]);
+    }
+}
+
+class MainContent extends UIComponent{
+    constructor() {
+        super('main', {}, [
+            new UIComponent('p', { className: 'description', text: 'Nawet Sknerus McKwacz dba o to, żebyś wiedział ile płacisz. Przelicz walutę przed wizytą — zero ukrytych kosztów.' }),
+            new UIComponent('section', { className: 'table' }, [
+                new UIComponent('form', { id: 'calc-form', className: 'main-form' }, [
+                    new UIComponent('h1', { className: 'form-h1', text: 'Przelicznik walut' }),
+                    
+                    new UIComponent('div', { className: 'input-group' }, [
+                        new UIComponent('label', { attrs: { for: 'amount' }, text: 'Kwota', className: 'v-hidden' }),
+                        new UIComponent('input', { id: 'amount', className: 'top-input', attrs: { type: 'number', name: 'amount', placeholder: 'Wpisz kwotę', required: true } }),
+                        new UIComponent('select', { id: 'origin', className: 'input-group-select', attrs: { name: 'origin', required: true } }, [
+                            new UIComponent('option', { text: 'Wybierz Kraj', attrs: { value: '' } })
+                        ])
+                    ]),
+
+                    new UIComponent('button', {
+                        className: 'change',
+                        attrs: { type: 'submit', onclic: (e) => { e.preventDefault(); window.switchOriginTarget?.(); } }
+                    }, [
+
+                        new UIComponent('div', { className: 'input-group' }, [
+                            new UIComponent('output', { id: 'result', className: 'bottom-input', text: '0.00', attrs: { for: 'amount', name: 'result' } }),
+                            new UIComponent('select', { id: 'target', className: 'input-group-select', attrs: { name: 'target', required: true } }, [
+                                new UIComponent('option', { text:'Wybierz Kraj', attrs: {value: ''}})
+                            ])
+                        ])
+                    ])
+                ])
+            ])
+        ])
     }
 }
 
