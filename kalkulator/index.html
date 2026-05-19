@@ -1,98 +1,12 @@
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
-  <link rel="stylesheet" href="/src/css/style.css">
-  <link rel="stylesheet" href="/src/css/calculator.css">
-  <link rel="stylesheet" href="/src/css/screen.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
-  <script defer src="/src/js/theme.js"></script>
-  <script defer src="/src/js/constants.js"></script>
-  <script defer src="/src/js/expenses.js"></script>
-  <script defer src="/src/js/countries.js"></script>
-  <script defer src="/src/js/currencies.js"></script>
-  <script defer src="/src/js/calculator.js"></script>
-  <title>Kantor Sknerusa McKwacza</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kantor Sknerusa McKwacza</title>
+    
+    <script src="/src/js/index.js" defer></script>
 </head>
 <body>
-  <header>
-    <a class="img-container" href="/"><img src="/assets/images/sknerus.png" alt="logotyp"></a>
-    <nav class="nav-desktop f-comic f-big">
-        <!--<a class="nav-link-container" href="/"><span>Strona główna</span></a>-->
-        <a class="nav-link-container" href="/kalkulator"><span>Kalkulator podróży</span></a>
-        <a class="nav-link-container" href="/lista-krajow"><span>Listy Krajów</span></a>
-    </nav>
-    <div class="space"></div>
-    <a class="img-container" href="javascript:void(0)" onclick="switchTheme()"><img id="theme-icon" src="/assets/images/theme-light.webp" alt="motyw strony"></a>
-    <input type="checkbox" id="nav-check">
-    <label for="nav-check" class="nav-button">
-      <i class="fas fa-bars"></i>
-    </label>
-    <nav class="nav-mobile f-comic f-big">
-        <!--<a href="/">Strona główna</a>-->
-        <a href="/kalkulator">Kalkulator podróży</a>
-        <a href="/lista-krajow">Listy Krajów</a>
-    </nav>
-  </header>
-
-  <main>
-    <section>
-      <h1 class="f-comic f-big">Kalkulator podróży</h1>
-      <table id="expenses-table" class="exp-table">
-        <thead class="f-note f-big">
-          <tr>
-            <th>Nr</th>
-            <th>Kraj</th>
-            <th>Nazwa Wydatku</th>
-            <th>Koszt</th>
-            <th>Waluta</th>
-          </tr>
-        </thead>
-        <tbody id="expenses-table-body" class="f-note f-small">
-        </tbody>
-        <tfoot class="f-note">
-          <tr>
-            <th><button onclick="expenses.showExpenseForm()"><span>+</span></button></th>
-            <th class="f-normal">Suma wydatków:</th>
-            <th id="sum-value" class="f-normal">0</th>
-            <th class="f-note f-small">
-              <select id="currency" name="currency" required>
-                <option value="PLN">polski złoty</option>
-              </select>
-            </th>
-          </tr>
-        </tfoot>
-      </table>
-      <div id="new-expense" hidden>
-        
-        <div class="foreground-container f-note">
-          <form id="expense-form" class="new-entry-form" method="post">
-            <button type="button" class="exit-button f-note" onclick="expenses.hideExpenseForm()">x</button>
-            <h2>Nowy Wydatek</h2>
-            <div id="currency-warning" class="f-note" style="color: #ff4d4d; font-size: 0.9rem; margin-bottom: 10px; text-align: center;" hidden></div>
-            <select id="country" class="new-entry-form-select f-note" name="country" required>
-              <option value="">Wybierz Kraj</option>
-            </select>
-            <input type="text" id="name" class="new-entry-form-input" name="name" placeholder="Nazwa Wydatku (max 40)" maxlength="40" required>
-            <div class="new-entry-form-value-container">
-            <input type="number" id="value" class="new-entry-form-input" name="value" placeholder="Koszt Wydatku" max="999999999" oninput="if(this.value.length > 9) this.value = this.value.slice(0, 9);"required>
-              <input type="text" id="currencyName" class="new-entry-form-output" name="currencyName" value="-" disabled>
-            </div>
-            <input type="text" id="currencySymbol" name="currencySymbol" value="" disabled hidden>
-            <input type="text" id="currencyCode" name="currencyCode" value="-" disabled hidden>
-
-            <button type="submit" class="new-entry-form-submit">Dodaj</button>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-
-  </footer>
-
-</body>
+    </body>
 </html>
