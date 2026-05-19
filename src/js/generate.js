@@ -154,7 +154,7 @@ class MainContent extends UIComponent {
                     //gorny input do wpisywania kwot
                     new UIComponent('div', { className: 'input-group' }, [
                         new UIComponent('label', { attrs: { for: 'amount', style: 'display:none;' }, text: 'Kwota' }),
-                        new UIComponent('input', { id: 'amount', className: 'top-input', attrs: { type: 'number', name: 'amount', placeholder: 'Wpisz kwotę', required: true } }),
+                        new UIComponent('input', { id: 'amount', className: 'top-input', attrs: { type: 'text', name: 'amount', maxlength: '16', inputmode: 'decimal', placeholder: 'Wpisz kwotę', required: true } }),
                         new UIComponent('select', { id: 'origin', className: 'input-group-select', attrs: { name: 'origin', required: true } }, [
                             new UIComponent('option', { text: 'Wybierz Kraj', attrs: { value: '' } })
                         ])
@@ -192,13 +192,11 @@ class App extends UIComponent {
         //wywolanie naszyego szkieletu
         const header = new Header();
         const main = new MainContent();
-        const footer = new Footer();
         //przypisanie go jako dzieci glownego pojemnika
-        this.children = [header, main, footer];
+        this.children = [header, main];
         //dodajemy wygenerowane elementy do pojemnika
         this.element.appendChild(header.element);
         this.element.appendChild(main.element);
-        this.element.appendChild(footer.element);
     }
 }
 //DOMContentLoaded - czeka az cala strona sie zaladuje (pusta)
