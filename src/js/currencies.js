@@ -3,17 +3,36 @@ async function populateWithCurrencies(selectElement) {
   let url_A = nbpListApiUrl + '/' + nbpApiTable[0] + nbpApiFormat;
   let url_B = nbpListApiUrl + '/' + nbpApiTable[1] + nbpApiFormat;
 
-  let responseDataTabA = await fetch(url_A)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
+  try {
+    
+    const [resA, resB] = await Promise.all([
+      fetch(url_A).then(r => r.json()),
+      fetch(url_B).then(r => r.json())
+    ]);
 
+    let currencyList = resA[0].rates.concat(resB[0].rates);
+
+    currencyList.sort((a, b) => a.currency.localeCompare(b.currency, 'pl'));
+
+    selectElement.innerHTML = ''; 
+    
+    let plnOption = document.createElement('option');
+    plnOption.value = 'PLN';
+    plnOption.innerText = 'polski złoty (PLN)';
+    selectElement.appendChild(plnOption);
+
+    
+    for (let currency of currencyList) {
+      let option = document.createElement('option');
+      option.value = currency.code;
+  
+      option.innerText = currency.currency + ' (' + currency.code + ')';
+      selectElement.appendChild(option);
+    }
+
+  } catch (error) {
+    console.error('Błąd podczas pobierania walut:', error);
+  }
 
   let responseDataTabB = await fetch(url_B)
   .then(response => {

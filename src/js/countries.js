@@ -1,33 +1,30 @@
 
 function populateWithCountries(selectElement, getFullName = false) {
-  let fields = 'cca3,flag,name,currencies,translations'
+  let fields = 'cca3,flag,name,currencies,translations';
 
   fetch(countriesApiUrl + withThose + fields)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
+  .then(response => response.json())
   .then(responseData => {
-    const countries = responseData;
-    for(let country of countries) {
-      let name = country.cca3;
-      let visibleName = name;
-      if(getFullName)
-        visibleName = country.translations.pol.common; //country.name.common;
+  
+    const sortedCountries = responseData.sort((a, b) => {
+      const nameA = a.translations.pol.common || "";
+      const nameB = b.translations.pol.common || "";
+      return nameA.localeCompare(nameB, 'pl');
+    });
+
+    for(let country of sortedCountries) {
+      let code = country.cca3;
+      
+      let visibleName = getFullName ? country.translations.pol.common : code;
       let flag = country.flag;
 
       let option = document.createElement('option');
-      option.value = name;
+      option.value = code;
       option.innerText = flag + ' ' + visibleName;
-
       selectElement.appendChild(option);
     }
   })
-  .catch(error => {
-    console.error('Error:', error);
-  });
+  .catch(error => console.error('Error:', error));
 }
 
 function insertCountryCurrency(nameElement, symbolElement, codeElement, countryCode) {

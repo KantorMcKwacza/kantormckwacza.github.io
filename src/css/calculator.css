@@ -311,3 +311,22 @@
 
   border-spacing: 0;
 }
+
+.btn-add-main {
+    background-color: #ffcc00; 
+    color: #000;
+    border: 2px solid #000;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-add-main:hover {
+    background-color: #ffdb4d;
+    transform: scale(1.1);
+}

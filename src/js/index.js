@@ -146,12 +146,17 @@ class MainContent extends UIComponent {
                     new UIComponent('tfoot', { className: 'f-note' }, [
                         new UIComponent('tr', {}, [
                             new UIComponent('th', {}, [
-                                new UIComponent('button', { attrs: { onclick: 'expenses.showExpenseForm()' } }, [
+                                new UIComponent('button', { className: 'btn-add-main', attrs: { onclick: 'expenses.showExpenseForm()' } }, [
                                     new UIComponent('span', { text: '+' })
                                 ])
                             ]),
                             new UIComponent('th', { className: 'f-normal', text: 'Suma wydatków:' }),
                             new UIComponent('th', { id: 'sum-value', className: 'f-normal', text: '0' }),
+                            new UIComponent('th', { className: 'f-normal' }, [
+                             new UIComponent('button', { 
+                            className: 'btn-clear-table f-note', text: 'Wyczyść wszystko',attrs: { onclick: 'expenses.clearAllExpenses()' } 
+    })
+]),
                             new UIComponent('th', { className: 'f-note f-small' }, [
                                 new UIComponent('select', { id: 'currency', attrs: { name: 'currency', required: 'true' } }, [
                                     new UIComponent('option', { text: 'polski złoty', attrs: { value: 'PLN' } })
