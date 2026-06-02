@@ -11,11 +11,19 @@ async function populateWithCountries(elementsArray, childType, getFullName = fal
   })
   .then(responseData => {
     const countries = responseData;
+
+    countries.sort((a, b) => {
+      let nameA = getFullName ? a.translations.pol.common : a.cca3;
+      let nameB = getFullName ? b.translations.pol.common : b.cca3;
+
+      return nameA.localeCompare(nameB, "pl");
+    });
+
     for(let country of countries) {
       let name = country.cca3;
       let visibleName = name;
       if(getFullName)
-        visibleName = country.translations.pol.common; //country.name.common;
+        visibleName = country.translations.pol.common; 
       let flag = country.flag;
 
       let child = document.createElement(childType);

@@ -1,64 +1,11 @@
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
-  <link rel="stylesheet" href="/src/css/style.css">
-  <link rel="stylesheet" href="/src/css/screen.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
-  <script defer src="/src/js/theme.js"></script>
-  <script defer src="/src/js/constants.js"></script>
-  <script defer src="/src/js/countries.js"></script>
-  <script defer src="/src/js/exchange.js"></script>
-  <script defer src="/src/js/currencies.js"></script>
-  <title>Kantor Sknerusa McKwacza</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/src/js/generate.js" defer></script>
 </head>
 <body>
-  <header>
-    <a class="img-container" href="/"><img src="/assets/images/sknerus.png" alt="logotyp"></a>
-    <nav class="nav-desktop f-comic f-big">
-        <!--<a class="nav-link-container" href="/"><span>Strona główna</span></a>-->
-        <a class="nav-link-container" href="/kalkulator"><span>Kalkulator podróży</span></a>
-        <a class="nav-link-container" href="/lista-krajow"><span>Listy Krajów</span></a>
-    </nav>
-    <div class="space"></div>
-    <a class="img-container" href="javascript:void(0)" onclick="switchTheme()"><img id="theme-icon" src="/assets/images/theme-light.webp" alt="motyw strony"></a>
-    <input type="checkbox" id="nav-check">
-    <label for="nav-check" class="nav-button">
-      <i class="fas fa-bars"></i>
-    </label>
-    <nav class="nav-mobile f-comic f-big">
-        <!--<a href="/">Strona główna</a>-->
-        <a href="/kalkulator">Kalkulator podróży</a>
-        <a href="/lista-krajow">Listy Krajów</a>
-    </nav>
-  </header>
-
-  <main>
-    <section>
-      <h1>Kalkulator podróży</h1>
-      <form id="calc-form">
-        <label for="amount"></label>
-
-        <select id="origin" name="origin" required>
-          <option value="">--Wyierz Kraj--</option>
-        </select>
-        <input type="number" id="amount" name="amount" required>
-
-        <button type="button" onclick="switchOriginTarget()">Zamień</button>
-
-        <select id="target" name="target" required>
-          <option value="">--Wyierz Kraj--</option>
-        </select>
-        <output id="result" name="result" for="amount">
-      </form>
-    </section>
-  </main>
-
-  <footer>
-
-  </footer>
-  
+    
 </body>
 </html>
