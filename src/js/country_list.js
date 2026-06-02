@@ -71,10 +71,10 @@ async function showCountry() {
   cFlag.src             = country.flags.png;
   cFlag.alt             = country.flags.alt;
   cCapital.innerText    = country.capital[0];
-  cPopulation.innerText = country.population;
+  cPopulation.innerText = country.population.toLocaleString('pl-PL');
   cRoadSide.innerHTML   = country.car.side;
   cMap.href             = country.maps.openStreetMaps;
-  cArea.innerText       = country.area + ' km';
+  cArea.innerText       = country.area.toLocaleString('pl-PL') + ' km';
   let sup = document.createElement('sup');
   sup.innerText = '2';
   cArea.appendChild(sup);
@@ -95,24 +95,52 @@ async function showCountry() {
   });
   cTimezones.innerText = timezones;
 
-  country.borders.forEach((border) => {
-    let a = document.createElement('a');
-    a.href = "?country=" + border + "&page=" + currentPage;
-    a.innerText = border;
-    cBorders.appendChild(a);
-  });
+  /* sasiednie kraje przecinki */
+  cBorders.innerHTML = '<summary> Kraje graniczące: </summary>';
+  if (country.borders && country.borders.length > 0) {
+    country.borders.forEach((border, index) => {
+      let a = document.createElement('a');
+      a.href = "?country=" + border + "&page=" + currentPage;
+      a.innerText = border;
+      cBorders.appendChild(a);
 
-  for(let code in country.currencies) {
-    let span = document.createElement('span');
-    let curr = country.currencies[code];
-    span.innerText = curr.name + ' [' + curr.symbol + ']';
-    cCurrencies.appendChild(span);
+      if (index < country.borders.length - 1) {
+        cBorders.appendChild(document.createTextNode(', '));
+      }
+    });
+  } else {
+    cBorders.innerText = 'Brak';
   }
 
-  for(let code in country.languages) {
-    let span = document.createElement('span');
-    span.innerText = country.languages[code];
-    cLanguages.appendChild(span);
+  /* waluty przecinki */
+  cCurrencies.innerHTML = '<summary> Waluty: </summary>';
+  if (country.currencies) {
+    let currencyKeys = Object.keys(country.currencies);
+    currencyKeys.forEach((code, index) => {
+      let span = document.createElement('span');
+      let curr = country.currencies[code];
+      span.innerText = curr.name + ' [' + curr.symbol + ']';
+      cCurrencies.appendChild(span);
+
+      if (index < currencyKeys.length - 1) {
+        cCurrencies.appendChild(document.createTextNode(', '));
+      }
+    });
+  }
+
+  /* jezyki przecinki */
+  cLanguages.innerHTML = '<summary> Języki: </summary>';
+  if (country.languages) {
+    let langKeys = Object.keys(country.languages);
+    langKeys.forEach((code, index) => {
+      let span = document.createElement('span');
+      span.innerText = country.languages[code];
+      cLanguages.appendChild(span);
+
+      if (index < langKeys.length - 1) {
+        cLanguages.appendChild(document.createTextNode(', '));
+      }
+    });
   }
 
   countrySection.removeAttribute('hidden');
