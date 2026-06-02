@@ -13,8 +13,11 @@ class Expenses {
   #expensesList = {};
 
   constructor() {
-  }
 
+    this.loadLocalStorage();
+}
+
+  
   populateLists() {
     populateWithCountries(this.#countryList, true);
     populateWithCurrencies(this.#currencyList);
@@ -87,6 +90,8 @@ class Expenses {
 
     this.updateSumElement();
     this.updateLocalStorage();
+
+    this.renderSortedTable();
   }
 
   async updateSumElement() {
@@ -101,29 +106,75 @@ class Expenses {
     this.#sumValue.innerText = Math.round(sum * 10 ** resultPrecision) / (10 ** resultPrecision);
   }
 
-  loadLocalStorage() {
+loadLocalStorage() {
     let expnum = parseInt(localStorage.getItem(EXPENSECOUNT));
     let expsum = parseFloat(localStorage.getItem(EXPENSESUM));
 
     if(!isNaN(expnum)) this.#currentExpenseNumber = expnum;
     if(!isNaN(expsum)) this.#expensesSumInPLN = expsum;
 
-    this.updateSumElement();
-    for(let i = 1; i < this.#currentExpenseNumber; i++) {
-      let entry = localStorage.getItem(EXPENSEBASE + i);
-      this.#expenseEntry = JSON.parse(entry);
-      this.#expensesList[i] = this.#expenseEntry;
-      
-      const entryNotAvailable = this.#expenseEntry.code === 'N/A' || this.#expenseEntry.code === '-';
-      this.createExpenseEntryElement(entryNotAvailable);
-    }
-  }
+    
+    this.renderSortedTable();
+}
 
   updateLocalStorage() {
     localStorage.setItem(EXPENSECOUNT, this.#currentExpenseNumber);
     localStorage.setItem(EXPENSESUM,   this.#expensesSumInPLN);
     localStorage.setItem(EXPENSEBASE + this.#expenseEntry.id, JSON.stringify(this.#expenseEntry));
   }
+
+clearAllExpenses() {
+    if (confirm("Czy na pewno chcesz wyczyścić wszystkie wydatki?")) {
+      // Czyszczenie LocalStorage
+      for (let i = 1; i < this.#currentExpenseNumber; i++) {
+        localStorage.removeItem(EXPENSEBASE + i);
+      }
+      localStorage.removeItem(EXPENSECOUNT);
+      localStorage.removeItem(EXPENSESUM);
+
+      
+      this.#currentExpenseNumber = 1;
+      this.#expensesSumInPLN = 0;
+      this.#expensesList = {};
+      this.#expenseEntry = {};
+
+      this.#expensesTableBody.innerHTML = '';
+      this.updateSumElement();
+
+      console.info('Tabela została wyczyszczona.');
+    }
+  }
+
+
+renderSortedTable() {
+    let allExpenses = [];
+    
+    for (let i = 1; i < this.#currentExpenseNumber; i++) {
+        const item = localStorage.getItem(EXPENSEBASE + i);
+        if (item) {
+            allExpenses.push(JSON.parse(item));
+        }
+    }
+
+   
+    allExpenses.sort((a, b) => {
+        return a.country.localeCompare(b.country, 'pl');
+    });
+
+    
+    this.#expensesTableBody.innerHTML = ''; 
+    
+   
+    allExpenses.forEach(expense => {
+      
+        this.#expenseEntry = expense; 
+        const entryNotAvailable = expense.code === 'N/A' || expense.code === '-';
+        this.createExpenseEntryElement(entryNotAvailable); 
+    });
+
+    this.updateSumElement();
+}
+
 
   get form() {
     return this.#expenseForm;
@@ -141,4 +192,7 @@ class Expenses {
   hideExpenseForm() {
     this.#newExpense.hidden = 'hidden';
   }
+
+
+
 }
