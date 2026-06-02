@@ -13,13 +13,13 @@ class Expenses {
   #expensesList = {};
 
   constructor() {
-
+    this.populateLists();
     this.loadLocalStorage();
 }
 
   
   populateLists() {
-    populateWithCountries(this.#countryList, true);
+    populateWithCountries(this.#countryList,'option', true);
     populateWithCurrencies(this.#currencyList);
   }
 
