@@ -148,6 +148,7 @@ header {
 
 main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: top;
   height: var(--main-height);
@@ -163,7 +164,7 @@ main {
 }
 
 section {
-  width: 100vw;
+  width: 100%;
   height: fit-content;
 }
 
@@ -181,6 +182,34 @@ h2 {
   align-items: center;
   font-size: 2rem;
   margin-top: 0;
+}
+
+.exit-button {
+  display: flex;
+  position: relative;
+  top: 0;
+  left: calc(100% - var(--exit-button-total-size));
+  width: var(--exit-button-size);
+  height: var(--exit-button-size);
+  padding: 0;
+  margin: var(--exit-button-margin);
+
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  line-height: calc(var(--exit-button-size) - 0.6rem);
+  text-align: center;
+  justify-content: center;
+  color: light-dark(black, white);
+  font-weight: 800;
+  font-size: var(--exit-button-size);
+}
+.exit-button:hover {
+  color: light-dark(red, red);
+}
+.exit-button:active {
+  color: light-dark(darkred, darkred);
 }
 
 /* Usunięcie strzałek z inputów typu number */
