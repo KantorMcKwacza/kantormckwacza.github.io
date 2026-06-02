@@ -113,12 +113,17 @@
 
 .top-input, .bottom-input {
     flex-grow: 1;
+    min-width: 80%;
 }
-
-
 
 select {
     margin-left: 10px;
+    max-width: 10px;
+    min-width: 170px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 

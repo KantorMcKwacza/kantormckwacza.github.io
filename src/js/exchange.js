@@ -8,7 +8,7 @@ let targetCountryCode = '';
 
 
 fillCurrencyList(currencyList);
-populateWithCountries([calcForm.origin, calcForm.target], 'option');
+populateWithCountries([calcForm.origin, calcForm.target], 'option',true);
 
 
 async function calculateCurrencyExchange() {
