@@ -103,3 +103,10 @@
   background-color: #333333;
   color: white;
 }
+
+a[aria-current="page"] {
+  font-weight: bold;
+  text-decoration: underline;
+  color: red;
+  
+}

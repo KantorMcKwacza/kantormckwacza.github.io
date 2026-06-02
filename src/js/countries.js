@@ -26,6 +26,7 @@ async function populateWithCountries(elementsArray, childType, getFullName = fal
         let flag = country.flag;
 
         let child = document.createElement(childType);
+        child.id = `country/${name}`;
         child.value = name;
         child.innerText = flag + ' ' + visibleName;
 

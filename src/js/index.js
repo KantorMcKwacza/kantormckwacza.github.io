@@ -95,7 +95,6 @@ class Header extends UIComponent {
                 new UIComponent('img', { attrs: { src: '/assets/images/sknerus.png', alt: 'logotyp' } })
             ]),
             new UIComponent('nav', { className: 'nav-desktop f-comic f-big' }, [
-                Header.createNavLink('/', 'Strona główna'),
                 Header.createNavLink('/kalkulator', 'Kalkulator podróży'),
                 Header.createNavLink('/lista-krajow', 'Listy Krajów')
             ]),

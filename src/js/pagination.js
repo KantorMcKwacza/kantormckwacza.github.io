@@ -36,6 +36,10 @@ async function paginateList() {
  * @param {HTMLUListElement} list Element listy
  */
 function linkifyList(list) {
+
+  const urlParams = new URLSearchParams(window.location.search);
+  let pageParam = urlParams.has('page') ? `&page=${urlParams.get('page')}` : '';
+  
   const listElements = Array.from(list.getElementsByTagName('li'));
 
   listElements.forEach((li, index) => {
@@ -43,19 +47,14 @@ function linkifyList(list) {
 
     let countryCode = li.id.split('/')[1];
     let text = li.innerText;
+
     li.innerText = '';
-    page = window.location.href.split('page=')[1];
-    if(page == undefined)
-      page = ''
-    else
-      page = '&page=' + page;
-
     a.innerText = text;
-    a.href = "?country=" + countryCode + page;
 
+    a.href = "?country=" + countryCode + pageParam;
     li.appendChild(a);
-  });
-}
+  })
+};
 
 /**
  * Zmienia stronę na następną
@@ -96,31 +95,9 @@ function switchPageRelative(pageShift) {
   else
     currentPage += pageShift;
 
-  let urlString          = window.location.href;
-  let urlParamSplit      = urlString.split('?');
-  let baseUrl            = urlParamSplit[0];
-  let paramString        = urlParamSplit[1];
-  let queryString        = new URLSearchParams(paramString);
-  let alteredParamString = "";
-
-  for(let pair of queryString.entries()) {
-    let key   = pair[0];
-    let value = pair[1];
-
-    switch(key) {
-      case 'page':
-        value = currentPage;
-        break;
-      default:
-        break;
-    }
-    if(alteredParamString === "")
-      alteredParamString = key + '=' + value;
-    else
-      alteredParamString = alteredParamString + '&' + key + '=' + value;
-  }
-
-  window.location.href = baseUrl + '?' + alteredParamString;
+  let url = new URL(window.location.href);
+  url.searchParams.set('page', currentPage);
+  window.location.href = url.toString();
 }
 
 
@@ -199,6 +176,15 @@ function displayPageList(page) {
   }
 
   pageElements.forEach((pageElement, index) => {
+    const link = pageElement.querySelector('a');
+    if (link) {
+      if (parseInt(link.innerText) === page) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    }
+
     if(index === 0 || index === pageElements.length - 1) {
       pageElement.style.display = 'block';
     } else if (index >= startIndex && index <= endIndex) {
