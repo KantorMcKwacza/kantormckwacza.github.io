@@ -2,6 +2,7 @@
 const countryList    = document.getElementById('country-list');
 const pageList       = document.getElementById('page-list');
 const countrySection = document.getElementById('country-details');
+const listSection    = document.getElementById('list-section');
 
 // Elementy do których wpisywane są informacje o wybranym kraju
 const cName       = document.getElementById('country-name');
@@ -60,6 +61,7 @@ function getParameters() {
 async function showCountry() {
   if(currentCountry === undefined) {
     countrySection.hidden = 'hidden';
+    listSection.removeAttribute('hidden');
     return;
   }
 
@@ -114,6 +116,7 @@ async function showCountry() {
   }
 
   countrySection.removeAttribute('hidden');
+  listSection.hidden = 'hidden';
 }
 
 /**
@@ -121,6 +124,7 @@ async function showCountry() {
  */
 function hideCountry() {
   countrySection.hidden = 'hidden';
+  listSection.removeAttribute('hidden');
   const url = new URL(window.location.href);
   const params = url.searchParams;
   console.log(params);
