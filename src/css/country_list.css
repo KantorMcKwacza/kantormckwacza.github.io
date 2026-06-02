@@ -49,15 +49,11 @@
   margin-right: auto;
   margin-bottom: 5vh;
   padding-left: 5vw;
+
   article {
     width: 100%;
     table {
       width: 100%;
-      tr {
-        td {
-          width: auto;
-        }
-      }
     }
   }
 }
