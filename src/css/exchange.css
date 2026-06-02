@@ -140,3 +140,20 @@ input[type="number"] {
     -moz-appearance: textfield;
     appearance: textfield;
 }
+/* jesli < 768px to usuwa dolne marginesy*/
+@media (max-width: 768px) {
+    .description, .main-form {
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
+    .description {
+        border-bottom: none;
+    }
+    .main-form {
+        border-top: none;
+        box-shadow: none;
+    }
+}
