@@ -9,10 +9,203 @@
  * @see {@link displayPage}
  */
 async function paginateList() {
+  const header = document.querySelector('header');
+  if (header) {
+    const observer = new ResizeObserver(entries => {
+      const newHeight = entries[0].target.offsetHeight;
+      document.documentElement.style.setProperty('--nav-height', `${newHeight}px`);
+    });
+    observer.observe(header);
+  }
+
   await populateWithCountries(countryList, 'li', true, true);
+
+  createFiltersUI();
+
   createPagesList();
   linkifyList(countryList);
 
+  displayPageList(currentPage);
+  displayPage(currentPage);
+}
+
+/**
+ * Zmienia stronę od razu na pierwszą
+ */
+function firstPage() {
+  let url = new URL(window.location.href);
+  url.searchParams.set('page', 1);
+  window.location.href = url.toString();
+}
+
+/**
+ * Zmienia stronę od razu na ostatnią
+ */
+function lastPage() {
+  const visibleCountries = getVisibleCountries();
+  let pagesNumber = Math.ceil(visibleCountries.length / countriesPerPage);
+  if (pagesNumber === 0) pagesNumber = 1;
+
+  let url = new URL(window.location.href);
+  url.searchParams.set('page', pagesNumber);
+  window.location.href = url.toString();
+}
+
+let sortDirectionAsc = true; // Zmienna śledząca kierunek sortowania 
+
+/**
+ * Przełącza kierunek sortowania (A-Z na Z-A i odwrotnie) oraz wywołuje sortowanie listy.
+ */
+function toggleSort() {
+  sortDirectionAsc = !sortDirectionAsc;
+  const sortButton = document.getElementById('sort-button');
+  sortButton.innerText = sortDirectionAsc ? 'A-Z' : 'Z-A';
+  sortCountries();
+}
+
+/**
+ * Sortuje elementy <li> alfabetycznie, odcinając wcześniej flagi z początku tekstu.
+ * Aktualizuje widok aktualnej strony po posortowaniu.
+ */
+function sortCountries() {
+  const allCountries = Array.from(countryList.getElementsByTagName('li'));
+
+  allCountries.sort((a, b) => {
+    const nameA = a.textContent.substring(a.textContent.indexOf(' ') + 1).trim();
+    const nameB = b.textContent.substring(b.textContent.indexOf(' ') + 1).trim();
+
+    if (sortDirectionAsc) {
+      return nameA.localeCompare(nameB, 'pl');
+    } else {
+      return nameB.localeCompare(nameA, 'pl');
+    }
+  });
+
+  allCountries.forEach(li => countryList.appendChild(li));
+  displayPage(currentPage);
+}
+
+/**
+ * Pobiera wszystkie państwa, które nie zostały ukryte przez filtry.
+ * * @returns {HTMLElement[]} Tablica widocznych elementów <li> z państwami
+ */
+function getVisibleCountries() {
+  return Array.from(countryList.querySelectorAll('li:not(.hidden-by-filter)'));
+}
+
+/**
+ * Tworzy i wstawia interfejs użytkownika dla filtrów (wyszukiwarka, dropdown kontynentów, sortowanie).
+ * Automatycznie sortuje listę dostępnych kontynentów alfabetycznie.
+ */
+function createFiltersUI() {
+  if (document.getElementById('filters-container')) return;
+
+  // Główny kontener
+  const container = document.createElement('div');
+  container.id = 'filters-container';
+  container.className = 'main-form';
+
+  // Nagłówek
+  const header = document.createElement('h1');
+  header.className = 'f-comic f-big';
+  header.innerText = 'Lista krajów';
+  container.appendChild(header);
+
+  // div na inputy
+  const inputsWrapper = document.createElement('div');
+  inputsWrapper.className = 'input-group';
+  container.appendChild(inputsWrapper);
+
+  // Pole wyszukiwania 
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.id = 'search-input';
+  searchInput.placeholder = 'Wyszukaj kraj...';
+
+  // Lista rozwijana 
+  const selectFilter = document.createElement('select');
+  selectFilter.id = 'continent-filter';
+
+  // Opcje kontynentów
+  const options = [
+    { value: 'all', text: 'Wszystkie kontynenty' },
+    { value: 'Europe', text: 'Europa' },
+    { value: 'Asia', text: 'Azja' },
+    { value: 'Africa', text: 'Afryka' },
+    { value: 'Americas', text: 'Ameryki' },
+    { value: 'Oceania', text: 'Oceania' },
+    { value: 'Antarctic', text: 'Antarktyda' }
+  ];
+
+  const defaultOption = options.shift();
+  options.sort((a, b) => a.text.localeCompare(b.text, 'pl'));
+  options.unshift(defaultOption);
+
+  options.forEach(optData => {
+  const option = document.createElement('option');
+  option.value = optData.value;
+  option.innerText = optData.text;
+  selectFilter.appendChild(option);
+  });
+
+  const sortButton = document.createElement('button');
+  sortButton.id = 'sort-button';
+  sortButton.innerText = 'A-Z';
+  sortButton.title = 'Sortuj alfabetycznie';
+
+  sortButton.addEventListener('mouseover', () => sortButton.style.filter = 'brightness(1.1)');
+  sortButton.addEventListener('mouseout', () => sortButton.style.filter = 'none');
+
+  // Wrzucamy elementy do kontenera
+  container.appendChild(searchInput);
+  container.appendChild(selectFilter);
+  container.appendChild(sortButton);
+
+  // Wstawiamy cały kontener tuż przed listą państw 
+  countryList.parentNode.insertBefore(container, countryList);
+
+  // Podpinamy Event Listenery 
+  searchInput.addEventListener('input', applyFilters);
+  selectFilter.addEventListener('change', applyFilters);
+  sortButton.addEventListener('click', toggleSort);
+}
+
+/**
+ * Filtruje listę krajów na podstawie wpisanego tekstu i wybranego kontynentu.
+ * Ignoruje flagi na początku tekstu podczas wyszukiwania.
+ * Resetuje paginację do strony 1 po zastosowaniu filtrów.
+ */
+function applyFilters() {
+  const searchInput = document.getElementById('search-input');
+  const continentFilter = document.getElementById('continent-filter');
+
+  const searchTerm = searchInput.value.toLowerCase();
+  const selectedContinent = continentFilter.value;
+
+  const allCountries = Array.from(countryList.getElementsByTagName('li'));
+
+  allCountries.forEach(li => {
+    //  Zabezpieczanie wyszukiwania przed flagami-emoji na początku tekstu
+    const name = li.textContent.toLowerCase();
+    const matchesSearch = name.includes(searchTerm);
+
+    const region = li.getAttribute('data-region') || '';
+    const matchesContinent = selectedContinent === 'all' || region === selectedContinent;
+
+    if (matchesSearch && matchesContinent) {
+      li.classList.remove('hidden-by-filter');
+    } else {
+      li.classList.add('hidden-by-filter');
+    }
+  });
+
+  currentPage = 1;
+
+  const url = new URL(window.location.href);
+  url.searchParams.set('page', 1);
+  window.history.pushState({}, '', url);
+
+  createPagesList();
   displayPageList(currentPage);
   displayPage(currentPage);
 }
@@ -107,21 +300,33 @@ function switchPageRelative(pageShift) {
  * @see {@link createPage}
  */
 function createPagesList() {
-  const countriesNumber = countryList.getElementsByTagName('li').length;
+  const visibleCountries = getVisibleCountries();
+  let pagesNumber = Math.ceil(visibleCountries.length / countriesPerPage);
+  if (pagesNumber === 0) pagesNumber = 1;
 
-  let pagesNumber = countriesNumber / countriesPerPage;
-  if(pagesNumber !== Math.trunc(pagesNumber)) {
-    pagesNumber += 1;
-  }
+  // Znajdujemy wszystkie stałe przyciski 
+  const allItems = Array.from(pageList.children);
+  const controlButtons = allItems.filter(li => !li.querySelector('a[href^="?page="]'));
 
-  const nextPage = pageList.removeChild(pageList.lastElementChild);
+  // Dzielimy je na te z lewej (<< i <) oraz z prawej (> i >>)
+  const half = Math.ceil(controlButtons.length / 2);
+  const startButtons = controlButtons.slice(0, half);
+  const endButtons = controlButtons.slice(half);
 
-  for(let p = 1; p <= pagesNumber; p++) {
+  // Czyścimy listę
+  pageList.innerHTML = '';
+
+  // Wstawiamy przyciski startowe
+  startButtons.forEach(btn => pageList.appendChild(btn));
+
+  // Wstawiamy wygenerowane numery stron
+  for (let p = 1; p <= pagesNumber; p++) {
     let page = createPage(p);
-    if(page === -1) break;
-    pageList.appendChild(page);
+    if (page !== -1) pageList.appendChild(page);
   }
-  pageList.appendChild(nextPage);
+
+  // Wstawiamy przyciski końcowe
+  endButtons.forEach(btn => pageList.appendChild(btn));
 }
 
 /**
@@ -201,15 +406,19 @@ function displayPageList(page) {
  * @param {number} page Numer aktualnej strony
  */
 function displayPage(page) {
-  const countryElements = Array.from(countryList.getElementsByTagName('li'));
+  const allCountries = Array.from(countryList.getElementsByTagName('li'));
+  const visibleCountries = getVisibleCountries();
+
   const startIndex = (page - 1) * countriesPerPage;
   const endIndex = startIndex + countriesPerPage;
 
-  countryElements.forEach((countryElement, index) => {
+  allCountries.forEach(country => {
+    country.style.display = 'none';
+  });
+
+  visibleCountries.forEach((country, index) => {
     if (index >= startIndex && index < endIndex) {
-      countryElement.style.display = 'block';
-    } else {
-      countryElement.style.display = 'none';
+      country.style.display = 'block';
     }
   });
 }

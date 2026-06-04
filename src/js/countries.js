@@ -1,5 +1,5 @@
 async function populateWithCountries(elementsArray, childType, getFullName = false) {
-  let fields = 'cca3,flag,name,currencies,translations'
+  let fields = 'cca3,flag,name,currencies,translations,region';
 
   return await fetch(countriesApiUrl + withThose + fields)
     .then(response => {
@@ -26,9 +26,11 @@ async function populateWithCountries(elementsArray, childType, getFullName = fal
         let flag = country.flag;
 
         let child = document.createElement(childType);
-        child.id = `country/${name}`;
         child.value = name;
         child.innerText = flag + ' ' + visibleName;
+        child.id = `country/${name}`;
+
+        child.setAttribute('data-region', country.region || 'Unknown');
 
         if (elementsArray.constructor === Array) {
           for (let element of elementsArray) {

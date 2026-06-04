@@ -21,7 +21,7 @@
     <nav class="nav-desktop f-comic f-big">
         <!--<a class="nav-link-container" href="/"><span>Strona główna</span></a>-->
         <a class="nav-link-container" href="/kalkulator"><span>Kalkulator podróży</span></a>
-        <a class="nav-link-container" href="/lista-krajow"><span>Listy Krajów</span></a>
+        <a class="nav-link-container" href="/lista-krajow"><span>Lista Krajów</span></a>
     </nav>
     <div class="space"></div>
     <a class="img-container" href="javascript:void(0)" onclick="switchTheme()"><img id="theme-icon" src="/assets/images/theme-light.webp" alt="motyw strony"></a>
@@ -38,7 +38,6 @@
 
   <main>
     <section id="list-section">
-      <h1>Lista krajów</h1>
       <ul id="country-list" class="f-note f-normal">
       </ul>
     </section>
@@ -98,15 +97,28 @@
     <nav aria-label="pagination" class="pagination-container">
       <ul id="page-list" class="pagination">
         <li>
+          <a href="#" onclick="firstPage()">
+            <span aria-hidden="true">&laquo;&laquo;</span>
+            <span class="visuallyhidden">pierwsza strona</span>
+          </a>
+        </li>
+        <li>
           <a href="#" onclick="prevPage()">
             <span aria-hidden="true">&laquo;</span>
             <span class="visuallyhidden">poprzednia strona</span>
           </a>
         </li>
+      
         <li>
           <a href="#" onclick="nextPage()">
             <span class="visuallyhidden">następna strona</span>
             <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="lastPage()">
+            <span aria-hidden="true">&raquo;&raquo;</span>
+            <span class="visuallyhidden">ostatnia strona</span>
           </a>
         </li>
       </ul>
