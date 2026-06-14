@@ -129,9 +129,12 @@ class MainContent extends UIComponent {
     constructor() {
         super('main', {}, [
             new UIComponent('section', {}, [
-                new UIComponent('h1', { className: 'f-comic f-big', text: 'Kalkulator podróży' }),
+                
 
                 new UIComponent('table', { id: 'expenses-table', className: 'exp-table' }, [
+                new UIComponent('h1', { className: 'f-comic f-big', text: 'Kalkulator podróży' }),
+
+
                     new UIComponent('thead', { className: 'f-note f-big' }, [
                         new UIComponent('tr', {}, [
                             new UIComponent('th', { text: 'Nr' }),

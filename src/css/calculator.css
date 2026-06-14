@@ -314,19 +314,53 @@
 
 .btn-add-main {
     background-color: #ffcc00; 
-    color: #000;
+    color: #ffffff;
     border: 2px solid #000;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
+    width: 44px;  
+    height: 44px;
+    font-size: 30px; 
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.2s;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
 }
 
 .btn-add-main:hover {
     background-color: #ffdb4d;
     transform: scale(1.1);
+}
+
+
+.btn-clear-table {
+  background-color: light-dark(var(--table-background-color-light), var(--table-background-color-dark));
+  color: light-dark(var(--table-text-color-light), var(--table-text-color-dark));
+  border: 2px solid light-dark(var(--table-background-color-light), var(--table-background-color-dark));
+  border-radius: 10px;
+  
+ 
+  padding: 0.5rem 1rem;    
+  max-width: 300px;        
+  font-size: 0.9rem;       
+  
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, background-color 0.2s, border-color 0.2s;
+  width: 100%;
+  margin: 1rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-clear-table:hover {
+  background-color: var(--higlight-medium);
+  border-color: var(--higlight-medium);
+  transform: scale(1.05);
 }
