@@ -279,7 +279,9 @@ function switchPageRelative(pageShift) {
   }
 
   let firstPage = 1;
-  let lastPage  = pageList.getElementsByTagName('li').length - 2;
+  const visibleCountries = getVisibleCountries();
+  let lastPage = Math.ceil(visibleCountries.length / countriesPerPage);
+  if (lastPage === 0) lastPage = 1;
 
   if(currentPage + pageShift >= lastPage)
     currentPage = lastPage;

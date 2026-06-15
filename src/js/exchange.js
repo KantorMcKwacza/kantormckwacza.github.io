@@ -93,7 +93,7 @@ calcForm.amount.addEventListener('input', (event) => {
   input.value = value;
 
   let lengthDifference = originalLength - value.length;
-  input.selectionRange(cursorPosition - lengthDifference, cursorPosition - lengthDifference);
+  input.setSelectionRange(cursorPosition - lengthDifference, cursorPosition - lengthDifference);
 
   calculateCurrencyExchange();
 })

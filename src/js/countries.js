@@ -13,8 +13,8 @@ async function populateWithCountries(elementsArray, childType, getFullName = fal
       if (!Array.isArray(countries)) countries = [countries];
 
       countries.sort((a, b) => {
-        let nameA = getFullName ? (a.names.translations?.pol?.common || a.names.common) : a.codes.alpha_3;
-        let nameB = getFullName ? (b.names.translations?.pol?.common || b.names.common) : b.codes.alpha_3;
+        let nameA = getFullName ? (a.names?.translations?.pol?.common || a.names?.common || '') : (a.codes?.alpha_3 || '');
+        let nameB = getFullName ? (b.names?.translations?.pol?.common || b.names?.common || '') : (b.codes?.alpha_3 || '');
 
         return nameA.localeCompare(nameB, "pl");
       });
