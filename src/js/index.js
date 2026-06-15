@@ -73,8 +73,8 @@ class PageManager {
             '/src/js/constants.js',
             '/src/js/countries.js', 
             '/src/js/currencies.js',
-            '/src/js/exchange.js',
             '/src/js/expenses.js',
+            '/src/js/exchange.js',
             '/src/js/calculator.js'
         ];
         
