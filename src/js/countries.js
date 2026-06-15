@@ -1,7 +1,7 @@
 async function populateWithCountries(elementsArray, childType, getFullName = false) {
-  let fields = 'cca3,flag,name,currencies,translations,region';
+  let fields = 'codes,flag,names,geography';
 
-  return await fetch(countriesApiUrl + withThose + fields)
+  return await fetch(countriesApiUrl + withThose + fields, { headers: countryApiHeaders })
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -9,28 +9,29 @@ async function populateWithCountries(elementsArray, childType, getFullName = fal
       return response.json();
     })
     .then(responseData => {
-      let countries = responseData;
+      let countries = responseData.data || responseData;
+      if (!Array.isArray(countries)) countries = [countries];
 
       countries.sort((a, b) => {
-        let nameA = getFullName ? a.translations.pol.common : a.cca3;
-        let nameB = getFullName ? b.translations.pol.common : b.cca3;
+        let nameA = getFullName ? (a.names.translations?.pol?.common || a.names.common) : a.codes.alpha_3;
+        let nameB = getFullName ? (b.names.translations?.pol?.common || b.names.common) : b.codes.alpha_3;
 
         return nameA.localeCompare(nameB, "pl");
       });
 
       for (let country of countries) {
-        let name = country.cca3;
+        let name = country.codes.alpha_3;
         let visibleName = name;
         if (getFullName)
-          visibleName = country.translations.pol.common;
-        let flag = country.flag;
+          visibleName = country.names.translations?.pol?.common || country.names.common;
+        let flag = country.flag.emoji;
 
         let child = document.createElement(childType);
         child.value = name;
         child.innerText = flag + ' ' + visibleName;
         child.id = `country/${name}`;
 
-        child.setAttribute('data-region', country.region || 'Unknown');
+        child.setAttribute('data-region', country.geography?.region || 'Unknown');
 
         if (elementsArray.constructor === Array) {
           for (let element of elementsArray) {
@@ -62,7 +63,7 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
     return;
   }
 
-  fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields)
+  fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields, { headers: countryApiHeaders })
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -70,7 +71,8 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
       return response.json();
     })
     .then(responseData => {
-      if (responseData === undefined || !responseData.currencies || Object.keys(responseData.currencies).length === 0) {
+      const country = Array.isArray(responseData) ? responseData[0] : (responseData.data || responseData);
+      if (!country || !country.currencies || country.currencies.length === 0) {
         console.warn('Brak waluty dla tego kraju!');
 
         nameElement.value = 'NIEDOSTĘPNA';
@@ -84,10 +86,10 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
         return;
       }
 
-      const country = responseData;
-      let currencyCode = Object.keys(country.currencies)[0];
-      let currencyName = country.currencies[currencyCode].name;
-      let currencySymbol = country.currencies[currencyCode].symbol;
+      let currency = country.currencies[0];
+      let currencyCode = currency.code;
+      let currencyName = currency.name;
+      let currencySymbol = currency.symbol;
 
       nameElement.value = currencyName;
       symbolElement.value = currencySymbol;
@@ -101,9 +103,9 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
 }
 
 async function getCountryDetails(countryCode) {
-  let fields = 'capital,borders,area,maps,population,car,timezones,continents,currencies,languages,flags,translations';
+  let fields = 'capitals,borders,area,geography,population,car,timezones,continents,currencies,languages,flag,names,maps';
 
-  return await fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields)
+  return await fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields, { headers: countryApiHeaders })
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -111,10 +113,11 @@ async function getCountryDetails(countryCode) {
       return response.json();
     })
     .then(responseData => {
-      if (responseData === undefined) {
+      const data = Array.isArray(responseData) ? responseData[0] : (responseData.data || responseData);
+      if (data === undefined) {
         console.warn('Invalid or missing country code!');
       } else {
-        return responseData;
+        return data;
       }
     })
     .catch(error => {
@@ -123,9 +126,9 @@ async function getCountryDetails(countryCode) {
 }
 
 async function fillCurrencyList(currencyList) {
-  let fields = 'cca3,currencies';
+  let fields = 'codes,currencies';
 
-  fetch(countriesApiUrl + withThose + fields)
+  fetch(countriesApiUrl + withThose + fields, { headers: countryApiHeaders })
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -133,16 +136,18 @@ async function fillCurrencyList(currencyList) {
       return response.json();
     })
     .then(responseData => {
-      const countries = responseData;
+      const countries = responseData.data || responseData;
+      if (!Array.isArray(countries)) return;
+      
       for (let country of countries) {
-        let name = country.cca3;
-        let currencyCode = Object.keys(country.currencies)[0];
-
-        if (currencyCode === undefined) {
+        let name = country.codes.alpha_3;
+        if (!country.currencies || country.currencies.length === 0) {
           console.info("No currency for", name);
           continue
         }
-        let currencySymbol = country.currencies[currencyCode].symbol;
+        let currency = country.currencies[0];
+        let currencyCode = currency.code;
+        let currencySymbol = currency.symbol;
 
         currencyList[name] = { 'code': currencyCode, 'symbol': currencySymbol };
       }

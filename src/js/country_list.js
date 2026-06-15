@@ -66,34 +66,39 @@ async function showCountry() {
   }
 
   const country = await getCountryDetails(currentCountry);
+  if (!country) return;
 
-  cName.innerText       = country.translations.pol.common;
-  cFlag.src             = country.flags.png;
-  cFlag.alt             = country.flags.alt;
-  cCapital.innerText    = country.capital[0];
+  cName.innerText       = country.names.translations?.pol?.common || country.names.common;
+  cFlag.src             = country.flag.url_png;
+  cFlag.alt             = country.flag.alt || country.names.common;
+  cCapital.innerText    = country.capitals && country.capitals.length > 0 ? country.capitals[0].name : '-';
   cPopulation.innerText = country.population.toLocaleString('pl-PL');
-  cRoadSide.innerHTML   = country.car.side;
-  cMap.href             = country.maps.openStreetMaps;
-  cArea.innerText       = country.area.toLocaleString('pl-PL') + ' km';
+  cRoadSide.innerHTML   = country.car?.side || '-';
+  cMap.href             = country.maps?.open_street_maps || 'https://www.openstreetmap.org';
+  cArea.innerText       = (country.area?.kilometers || 0).toLocaleString('pl-PL') + ' km';
   let sup = document.createElement('sup');
   sup.innerText = '2';
   cArea.appendChild(sup);
 
   let continents = '';
   let comma = ''
-  country.continents.forEach((continent) => {
-    if(continents !== '') comma = ', ';
-    continents = continents + comma + continent;
-  });
-  cContinents.innerText = continents;
+  if (country.continents) {
+    country.continents.forEach((continent) => {
+      if(continents !== '') comma = ', ';
+      continents = continents + comma + continent;
+    });
+  }
+  cContinents.innerText = continents || '-';
 
   let timezones = '';
   comma = ''
-  country.timezones.forEach((timezone) => {
-    if(timezones !== '') comma = ', ';
-    timezones = timezones + comma + timezone;
-  });
-  cTimezones.innerText = timezones;
+  if (country.timezones) {
+    country.timezones.forEach((timezone) => {
+      if(timezones !== '') comma = ', ';
+      timezones = timezones + comma + timezone;
+    });
+  }
+  cTimezones.innerText = timezones || '-';
 
   /* sasiednie kraje przecinki */
   cBorders.innerHTML = '<summary> Kraje graniczące: </summary>';
@@ -115,14 +120,12 @@ async function showCountry() {
   /* waluty przecinki */
   cCurrencies.innerHTML = '<summary> Waluty: </summary>';
   if (country.currencies) {
-    let currencyKeys = Object.keys(country.currencies);
-    currencyKeys.forEach((code, index) => {
+    country.currencies.forEach((curr, index) => {
       let span = document.createElement('span');
-      let curr = country.currencies[code];
       span.innerText = curr.name + ' [' + curr.symbol + ']';
       cCurrencies.appendChild(span);
 
-      if (index < currencyKeys.length - 1) {
+      if (index < country.currencies.length - 1) {
         cCurrencies.appendChild(document.createTextNode(', '));
       }
     });
@@ -131,13 +134,12 @@ async function showCountry() {
   /* jezyki przecinki */
   cLanguages.innerHTML = '<summary> Języki: </summary>';
   if (country.languages) {
-    let langKeys = Object.keys(country.languages);
-    langKeys.forEach((code, index) => {
+    country.languages.forEach((lang, index) => {
       let span = document.createElement('span');
-      span.innerText = country.languages[code];
+      span.innerText = lang.name;
       cLanguages.appendChild(span);
 
-      if (index < langKeys.length - 1) {
+      if (index < country.languages.length - 1) {
         cLanguages.appendChild(document.createTextNode(', '));
       }
     });
