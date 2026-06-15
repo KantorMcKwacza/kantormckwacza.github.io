@@ -1,21 +1,17 @@
 async function populateWithCountries(elementsArray, childType, getFullName = false) {
-  let fields = 'codes.alpha_3,flag.emoji,names.common,names.translations,geography.region';
+  let fields = 'codes.alpha_3,flag.emoji,names.common,currencies,names.translations,geography.region';
 
-  return await fetch(countriesApiUrl + withThose + fields, { headers: countryApiHeaders })
+  return await fetch(countriesApiUrl + withThose + fields)
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
     })
     .then(responseData => {
-      let countries = responseData.data || responseData;
-      if (!Array.isArray(countries)) countries = [countries];
+      let countries = responseData;
 
       countries.sort((a, b) => {
-        let nameA = getFullName ? (a.names?.translations?.pol?.common || a.names?.common || '') : (a.codes?.alpha_3 || '');
-        let nameB = getFullName ? (b.names?.translations?.pol?.common || b.names?.common || '') : (b.codes?.alpha_3 || '');
-
+        let nameA = getFullName ? a.names.translations.pol.common : a.codes.alpha_3;
+        let nameB = getFullName ? b.names.translations.pol.common : b.codes.alpha_3;
         return nameA.localeCompare(nameB, "pl");
       });
 
@@ -23,20 +19,18 @@ async function populateWithCountries(elementsArray, childType, getFullName = fal
         let name = country.codes.alpha_3;
         let visibleName = name;
         if (getFullName)
-          visibleName = country.names.translations?.pol?.common || country.names.common;
+          visibleName = country.names.translations.pol.common;
         let flag = country.flag.emoji;
 
         let child = document.createElement(childType);
         child.value = name;
         child.innerText = flag + ' ' + visibleName;
         child.id = `country/${name}`;
-
-        child.setAttribute('data-region', country.geography?.region || 'Unknown');
+        child.setAttribute('data-region', country.geography.region || 'Unknown');
 
         if (elementsArray.constructor === Array) {
           for (let element of elementsArray) {
-            let clonedChild = child.cloneNode(true);
-            element.appendChild(clonedChild);
+            element.appendChild(child.cloneNode(true));
           }
         } else if (isDOM(elementsArray)) {
           elementsArray.appendChild(child);
@@ -45,40 +39,32 @@ async function populateWithCountries(elementsArray, childType, getFullName = fal
         }
       }
     })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    .catch(error => console.error('Error:', error));
 }
 
 function insertCountryCurrency(nameElement, symbolElement, codeElement, countryCode) {
-  let fields = 'currencies'
+  let fields = 'currencies';
   const warningBox = document.getElementById('currency-warning');
 
   if (countryCode === '') {
     nameElement.value = '-';
     symbolElement.value = '';
     codeElement.value = '';
-
     if (warningBox) warningBox.hidden = true;
     return;
   }
 
-  fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields, { headers: countryApiHeaders })
+  fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields)
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
     })
     .then(responseData => {
-      const country = Array.isArray(responseData) ? responseData[0] : (responseData.data || responseData);
-      if (!country || !country.currencies || country.currencies.length === 0) {
+      if (!responseData?.currencies || Object.keys(responseData.currencies).length === 0) {
         console.warn('Brak waluty dla tego kraju!');
-
         nameElement.value = 'NIEDOSTĘPNA';
         codeElement.value = 'N/A';
         symbolElement.value = '';
-
         if (warningBox) {
           warningBox.innerText = " Wybrany kraj nie posiada waluty. Wydatek nie zostanie podliczony.";
           warningBox.hidden = false;
@@ -86,73 +72,56 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
         return;
       }
 
-      let currency = country.currencies[0];
-      let currencyCode = currency.code;
-      let currencyName = currency.name;
-      let currencySymbol = currency.symbol;
+      let currencyCode = Object.keys(responseData.currencies)[0];
+      let currencyName = responseData.currencies[currencyCode].name;
+      let currencySymbol = responseData.currencies[currencyCode].symbol;
 
       nameElement.value = currencyName;
       symbolElement.value = currencySymbol;
       codeElement.value = currencyCode;
-
       if (warningBox) warningBox.hidden = true;
     })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    .catch(error => console.error('Error:', error));
 }
 
 async function getCountryDetails(countryCode) {
-  let fields = 'capitals,borders,area.kilometers,geography.region,population,car.side,timezones,continents,currencies,languages,flag.url_png,flag.alt,names.common,names.translations,maps.open_street_maps';
+  let fields = 'geography.capital,geography.borders,geography.area,geography.maps,demographics.population,transport.car,geography.timezones,geography.continents,currencies,demographics.languages,flag,names.translations';
 
-  return await fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields, { headers: countryApiHeaders })
+  return await fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields)
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
     })
     .then(responseData => {
-      const data = Array.isArray(responseData) ? responseData[0] : (responseData.data || responseData);
-      if (data === undefined) {
+      if (!responseData) {
         console.warn('Invalid or missing country code!');
       } else {
-        return data;
+        return responseData;
       }
     })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    .catch(error => console.error('Error:', error));
 }
 
 async function fillCurrencyList(currencyList) {
   let fields = 'codes.alpha_3,currencies';
 
-  fetch(countriesApiUrl + withThose + fields, { headers: countryApiHeaders })
+  fetch(countriesApiUrl + withThose + fields)
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
     })
     .then(responseData => {
-      const countries = responseData.data || responseData;
-      if (!Array.isArray(countries)) return;
-      
-      for (let country of countries) {
+      for (let country of responseData) {
         let name = country.codes.alpha_3;
-        if (!country.currencies || country.currencies.length === 0) {
-          console.info("No currency for", name);
-          continue
-        }
-        let currency = country.currencies[0];
-        let currencyCode = currency.code;
-        let currencySymbol = currency.symbol;
+        let currencyCode = Object.keys(country.currencies)[0];
 
+        if (currencyCode === undefined) {
+          console.info("No currency for", name);
+          continue;
+        }
+        let currencySymbol = country.currencies[currencyCode].symbol;
         currencyList[name] = { 'code': currencyCode, 'symbol': currencySymbol };
       }
     })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    .catch(error => console.error('Error:', error));
 }
