@@ -1,5 +1,5 @@
 async function populateWithCountries(elementsArray, childType, getFullName = false) {
-  let fields = 'codes,flag,names,geography';
+  let fields = 'codes.alpha_3,flag.emoji,names.common,names.translations,geography.region';
 
   return await fetch(countriesApiUrl + withThose + fields, { headers: countryApiHeaders })
     .then(response => {
@@ -103,7 +103,7 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
 }
 
 async function getCountryDetails(countryCode) {
-  let fields = 'capitals,borders,area,geography,population,car,timezones,continents,currencies,languages,flag,names,maps';
+  let fields = 'capitals,borders,area.kilometers,geography.region,population,car.side,timezones,continents,currencies,languages,flag.url_png,flag.alt,names.common,names.translations,maps.open_street_maps';
 
   return await fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields, { headers: countryApiHeaders })
     .then(response => {
@@ -126,7 +126,7 @@ async function getCountryDetails(countryCode) {
 }
 
 async function fillCurrencyList(currencyList) {
-  let fields = 'codes,currencies';
+  let fields = 'codes.alpha_3,currencies';
 
   fetch(countriesApiUrl + withThose + fields, { headers: countryApiHeaders })
     .then(response => {
