@@ -1,7 +1,7 @@
 async function populateWithCountries(elementsArray, childType, getFullName = false) {
   let fields = 'codes.alpha_3,flag.emoji,names.common,currencies,names.translations,region';
 
-  return await fetch(countriesApiUrl + withThose + fields)
+  return await fetch(countriesApiUrl + withThose + fields , { headers: countryApiHeaders })
     .then(response => {
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
@@ -54,7 +54,7 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
     return;
   }
 
-  fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields)
+  fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields , { headers: countryApiHeaders })
     .then(response => {
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
@@ -86,7 +86,7 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
 async function getCountryDetails(countryCode) {
   let fields = 'capitals,borders,area,links,population,cars,timezones,continents,currencies,languages,flag,names.translations,names.common';
 
-  return await fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields)
+  return await fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields, { headers: countryApiHeaders })
     .then(response => {
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
@@ -104,7 +104,7 @@ async function getCountryDetails(countryCode) {
 async function fillCurrencyList(currencyList) {
   let fields = 'codes.alpha_3,currencies';
 
-  fetch(countriesApiUrl + withThose + fields)
+  fetch(countriesApiUrl + withThose + fields, { headers: countryApiHeaders })
     .then(response => {
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
