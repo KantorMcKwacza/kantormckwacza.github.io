@@ -18,9 +18,9 @@ const nbpApiTable     = ['A', 'B'];
 const nbpApiFormat    = '?format=json';
 
 
-const countriesApiUrl       = 'https://api.restcountries.com/countries/v5';
-const countryApiUrl         = 'https://api.restcountries.com/countries/v5/names.common';
-const countryByCodeApiUrl   = 'https://api.restcountries.com/countries/v5/codes.alpha_3';
+const countriesApiUrl       = 'https://api.restcountries.com/countries/v5/';
+const countryApiUrl         = 'https://api.restcountries.com/countries/v5/names.common/';
+const countryByCodeApiUrl   = 'https://api.restcountries.com/countries/v5/codes.alpha_3/';
 const countryApiHeaders = {
   'Authorization': 'Bearer rc_live_a142bfdf0f9d44cabeb9f57299c52386'
 };
