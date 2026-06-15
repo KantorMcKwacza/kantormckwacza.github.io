@@ -1,5 +1,5 @@
 async function populateWithCountries(elementsArray, childType, getFullName = false) {
-  let fields = 'codes.alpha_3,flag.emoji,names.common,currencies,names.translations,geography.region';
+  let fields = 'codes.alpha_3,flag.emoji,names.common,currencies,names.translations,region';
 
   return await fetch(countriesApiUrl + withThose + fields)
     .then(response => {
@@ -7,7 +7,7 @@ async function populateWithCountries(elementsArray, childType, getFullName = fal
       return response.json();
     })
     .then(responseData => {
-      let countries = responseData;
+      let countries = responseData.data.objects; 
 
       countries.sort((a, b) => {
         let nameA = getFullName ? a.names.translations.pol.common : a.codes.alpha_3;
@@ -26,7 +26,7 @@ async function populateWithCountries(elementsArray, childType, getFullName = fal
         child.value = name;
         child.innerText = flag + ' ' + visibleName;
         child.id = `country/${name}`;
-        child.setAttribute('data-region', country.geography.region || 'Unknown');
+        child.setAttribute('data-region', country.region || 'Unknown'); 
 
         if (elementsArray.constructor === Array) {
           for (let element of elementsArray) {
@@ -60,7 +60,9 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
       return response.json();
     })
     .then(responseData => {
-      if (!responseData?.currencies || Object.keys(responseData.currencies).length === 0) {
+      const country = responseData.data.objects[0]; 
+
+      if (!country?.currencies || country.currencies.length === 0) {
         console.warn('Brak waluty dla tego kraju!');
         nameElement.value = 'NIEDOSTĘPNA';
         codeElement.value = 'N/A';
@@ -72,20 +74,17 @@ function insertCountryCurrency(nameElement, symbolElement, codeElement, countryC
         return;
       }
 
-      let currencyCode = Object.keys(responseData.currencies)[0];
-      let currencyName = responseData.currencies[currencyCode].name;
-      let currencySymbol = responseData.currencies[currencyCode].symbol;
-
-      nameElement.value = currencyName;
-      symbolElement.value = currencySymbol;
-      codeElement.value = currencyCode;
+      let currency = country.currencies[0];
+      nameElement.value = currency.name;
+      symbolElement.value = currency.symbol;
+      codeElement.value = currency.code;
       if (warningBox) warningBox.hidden = true;
     })
     .catch(error => console.error('Error:', error));
 }
 
 async function getCountryDetails(countryCode) {
-  let fields = 'geography.capital,geography.borders,geography.area,geography.maps,demographics.population,transport.car,geography.timezones,geography.continents,currencies,demographics.languages,flag,names.translations';
+  let fields = 'capitals,borders,area,links,population,cars,timezones,continents,currencies,languages,flag,names.translations,names.common';
 
   return await fetch(countryByCodeApiUrl + '/' + countryCode + withThose + fields)
     .then(response => {
@@ -93,10 +92,10 @@ async function getCountryDetails(countryCode) {
       return response.json();
     })
     .then(responseData => {
-      if (!responseData) {
+      if (!responseData?.data?.objects?.[0]) {
         console.warn('Invalid or missing country code!');
       } else {
-        return responseData;
+        return responseData.data.objects[0]; 
       }
     })
     .catch(error => console.error('Error:', error));
@@ -111,16 +110,17 @@ async function fillCurrencyList(currencyList) {
       return response.json();
     })
     .then(responseData => {
-      for (let country of responseData) {
-        let name = country.codes.alpha_3;
-        let currencyCode = Object.keys(country.currencies)[0];
+      const countries = responseData.data.objects; 
 
-        if (currencyCode === undefined) {
+      for (let country of countries) {
+        let name = country.codes.alpha_3;
+
+        if (!country.currencies || country.currencies.length === 0) {
           console.info("No currency for", name);
           continue;
         }
-        let currencySymbol = country.currencies[currencyCode].symbol;
-        currencyList[name] = { 'code': currencyCode, 'symbol': currencySymbol };
+        let currency = country.currencies[0];
+        currencyList[name] = { 'code': currency.code, 'symbol': currency.symbol };
       }
     })
     .catch(error => console.error('Error:', error));
