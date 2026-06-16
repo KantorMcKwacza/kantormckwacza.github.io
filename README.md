@@ -16,14 +16,17 @@ Projekt został wykonany przez:
 
 ## Opis
 
-Opis
+Projekt został stworzony w celu zebrania najpotrzebniejszych narzędzi w planowaniu podróży i wydatków z nią związanych.
+Na stronie głównej możemy przeliczyć walutę dowolnych dwóch krajów.
+Strona kalkulatora podróży daje możliwość zaplanowania kolejnych wydatków w różnych miejscach na ziemi oraz podliczenia całkowitego kosztu w wybranej walucie.
+Na stronie listy krajów znajdują się podstawowe informacje dotyczące wybranych krajów.
 
 ## Podgląd projektu
 
-Screeny
+![Strona Główna](screenshots/stronaglowna.png)
+![Kalkulator Podróży](screenshots/kalkulator.png)
+![Lista Krajów](screenshots/lista.png)
 
-## Funkcjonalności
-- **Funkcjonalność**: Opis.
 
 ## Technologie
 - HTML
@@ -52,5 +55,3 @@ npm start
 ```
 Aplikacja zostanie uruchomiona lokalnie i dostępna pod adresem `http://localhost:4200/`
 
-## Instrukcja użytkownika
-Instrukcja
