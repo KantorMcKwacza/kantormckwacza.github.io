@@ -163,11 +163,20 @@ input[type="number"] {
     appearance: textfield;
 }
 
-
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     .description, .main-form {
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0 0 0;          
         padding: 1.5rem 1rem;
+
         border-width: 8px;
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+
+        position: relative;
+        z-index: 1;                  
     }
     .description {
         padding-bottom: 1.5rem;
