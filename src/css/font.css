@@ -1,0 +1,8 @@
+@font-face {
+  font-family: comic;
+  src: url(/assets/fonts/ComicImpactRegular_pl.woff);
+}
+@font-face {
+  font-family: note;
+  src: url(/assets/fonts/Noteworthy.otf);
+}

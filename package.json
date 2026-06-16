@@ -1,0 +1,24 @@
+{
+  "name": "kantormckwacza",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/KantorMcKwacza/kantormckwacza.github.io#readme",
+  "bugs": {
+    "url": "https://github.com/KantorMcKwacza/kantormckwacza.github.io/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KantorMcKwacza/kantormckwacza.github.io.git"
+  },
+  "license": "ISC",
+  "author": "hyzio, dyzio i zyzio",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
