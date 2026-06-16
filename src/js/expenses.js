@@ -123,7 +123,7 @@ loadLocalStorage() {
     localStorage.setItem(EXPENSEBASE + this.#expenseEntry.id, JSON.stringify(this.#expenseEntry));
   }
 
-clearAllExpenses() {
+  clearAllExpenses() {
     if (confirm("Czy na pewno chcesz wyczyścić wszystkie wydatki?")) {
       // Czyszczenie LocalStorage
       for (let i = 1; i < this.#currentExpenseNumber; i++) {
@@ -146,34 +146,34 @@ clearAllExpenses() {
   }
 
 
-renderSortedTable() {
-    let allExpenses = [];
-    
-    for (let i = 1; i < this.#currentExpenseNumber; i++) {
-        const item = localStorage.getItem(EXPENSEBASE + i);
-        if (item) {
-            allExpenses.push(JSON.parse(item));
-        }
-    }
+  renderSortedTable() {
+      let allExpenses = [];
 
-   
-    allExpenses.sort((a, b) => {
-        return a.country.localeCompare(b.country, 'pl');
-    });
+      for (let i = 1; i < this.#currentExpenseNumber; i++) {
+          const item = localStorage.getItem(EXPENSEBASE + i);
+          if (item) {
+              allExpenses.push(JSON.parse(item));
+          }
+      }
 
-    
-    this.#expensesTableBody.innerHTML = ''; 
-    
-   
-    allExpenses.forEach(expense => {
-      
-        this.#expenseEntry = expense; 
-        const entryNotAvailable = expense.code === 'N/A' || expense.code === '-';
-        this.createExpenseEntryElement(entryNotAvailable); 
-    });
 
-    this.updateSumElement();
-}
+      allExpenses.sort((a, b) => {
+          return a.country.localeCompare(b.country, 'pl');
+      });
+
+
+      this.#expensesTableBody.innerHTML = '';
+
+
+      allExpenses.forEach(expense => {
+
+          this.#expenseEntry = expense;
+          const entryNotAvailable = expense.code === 'N/A' || expense.code === '-';
+          this.createExpenseEntryElement(entryNotAvailable);
+      });
+
+      this.updateSumElement();
+  }
 
 
   get form() {

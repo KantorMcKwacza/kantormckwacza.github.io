@@ -1,5 +1,5 @@
 async function populateWithCountries(elementsArray, childType, getFullName = false) {
-  let fields = 'codes.alpha_3,flag.emoji,names.common,currencies,names.translations,region';
+  let fields = 'codes.alpha_3,flag.emoji,names.common,currencies,names.translations,region&limit=100&offset=1';
 
   return await fetch(countriesApiUrl + withThose + fields , { headers: countryApiHeaders })
     .then(response => {

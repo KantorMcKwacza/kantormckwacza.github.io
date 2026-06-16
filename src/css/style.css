@@ -15,6 +15,10 @@
   --fade-time: 1s;
 }
 
+[hidden]{
+  display: none !important;
+}
+
 .f-note {
   font-family: note;
 }

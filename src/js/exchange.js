@@ -1,10 +1,12 @@
-document.addEventListener('DOMContentLoaded', () => {
 const calcForm = document.getElementById('calc-form');
 let currencyList = {};
 let originCountryCode = '';
 let targetCountryCode = '';
+
 fillCurrencyList(currencyList);
+
 populateWithCountries([calcForm.origin, calcForm.target], 'option',true);
+
 async function calculateCurrencyExchange() {
   let value = parseFloat(calcForm.amount.value, 10);
   if(isNaN(value)) {
@@ -15,6 +17,7 @@ async function calculateCurrencyExchange() {
   let exchangedValue = await exchangeToFromPLN(targetCountryCode, exchangeDirection.FROM, valueInPLN);
   calcForm.result.innerText = exchangedValue.toFixed(resultPrecision);
 }
+
 function switchOriginTarget() {
   let t = targetCountryCode;
   targetCountryCode = originCountryCode;
@@ -24,31 +27,33 @@ function switchOriginTarget() {
   calcForm.origin.value = v;
   calculateCurrencyExchange();
 }
+
 calcForm.target.addEventListener('change', (event) => {
   if(calcForm.target.value === ''){
     targetCountryCode = '';
   }
   if(currencyList[calcForm.target.value] !== undefined)
     targetCountryCode = currencyList[calcForm.target.value].code;
-})
+});
+
 calcForm.origin.addEventListener('change', (event) => {
   if(calcForm.origin.value === ''){
     originCountryCode = '';
   }
-  console.log(currencyList[calcForm.origin.value], currencyList);
   if(currencyList[calcForm.origin.value] !== undefined)
     originCountryCode = currencyList[calcForm.origin.value].code;
-})
+});
 calcForm.addEventListener('submit', (event) => {
   calculateCurrencyExchange();
   event.preventDefault();
-})
+});
 calcForm.target.addEventListener('change', (event) => {
   calculateCurrencyExchange();
-})
+});
 calcForm.origin.addEventListener('change', (event) => {
   calculateCurrencyExchange();
-})
+});
+
 calcForm.amount.addEventListener('input', (event) => {
   let input = event.target;
   let value = input.value;
@@ -71,7 +76,4 @@ calcForm.amount.addEventListener('input', (event) => {
   let lengthDifference = originalLength - value.length;
   input.setSelectionRange(cursorPosition - lengthDifference, cursorPosition - lengthDifference);
   calculateCurrencyExchange();
-})
-
-window.switchOriginTarget = switchOriginTarget;
-}); 
+});
