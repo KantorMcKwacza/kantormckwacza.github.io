@@ -98,10 +98,31 @@
     padding: 15px;
     font-size: 1.2rem;
     transition: 0.3s ease;
+    gap: 15px;
+}
+
+.input-group .top-input,
+.input-group .bottom-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.input-group .input-group-select,
+.input-group .bottom-input-select {
+    flex-shrink: 0;
 }
 .input-group:hover {
     filter: brightness(1.2);
     box-shadow: inset 0 0 0 4px light-dark(var(--table-border-color-light), var(--table-border-color-dark)), ;
+}
+
+.input-group .top-input,
+.input-group .input-group-select,
+.input-group .bottom-input
+.input-group-select {
+    box-sizing: border-box;
+    height: 45px;
+    margin: 0;
 }
 
 .top-input, select, .bottom-input {
