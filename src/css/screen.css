@@ -1,27 +1,6 @@
-
-html, body, .main-wrapper {
-  min-height: 100dvh;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 0;
-  box-sizing: border-box;
-}
-
 @media screen and (orientation: portrait) {
   main {
     background-image: url('/assets/images/bg_portrait.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     transition: background 1.5s ease;
   }
 }
@@ -54,9 +33,6 @@ main {
 @media screen and (width < 800px) {
   .main-form {
     width: calc(100% - 2rem);
-    max-width: 480px;
-    margin: 0 auto;
-    box-sizing: border-box;
     border-left: none;
     border-right: none;
   }
@@ -160,6 +136,14 @@ main {
     align-items: center;
     justify-content: center;
   }
+
+.description {
+  width: calc(100% - 2rem);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box; 
+}
+
 }
 
 .calculator-title {
