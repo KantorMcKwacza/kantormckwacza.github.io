@@ -22,7 +22,7 @@ const countriesApiUrl       = 'https://api.restcountries.com/countries/v5';
 const countryApiUrl         = 'https://api.restcountries.com/countries/v5/names.common';
 const countryByCodeApiUrl   = 'https://api.restcountries.com/countries/v5/codes.alpha_3';
 const countryApiHeaders = {
-  'Authorization': 'Bearer rc_live_30b487681b1f465f810c530f56e73585'
+  'Authorization': 'Bearer rc_live_e2ef69f49b064bb0919f457b793348e3'
 };
 const withThose             = '?response_fields='; 
 
