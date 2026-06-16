@@ -3,10 +3,8 @@
 - [Zespół](#zespół)
 - [Opis](#opis)
 - [Podgląd projektu](#podgląd-projektu)
-- [Funkcjonalności](#funkcjonalności)
 - [Technologie](#technologie)
 - [Uruchomienie projektu lokalnie](#uruchomienie-projektu-lokalnie)
-- [Instrukcja użytkownika](#instrukcja-użytkownika)
 
 ## Zespół
 Projekt został wykonany przez:
@@ -16,10 +14,10 @@ Projekt został wykonany przez:
 
 ## Opis
 
-Projekt został stworzony w celu zebrania najpotrzebniejszych narzędzi w planowaniu podróży i wydatków z nią związanych.
-Na stronie głównej możemy przeliczyć walutę dowolnych dwóch krajów.
-Strona kalkulatora podróży daje możliwość zaplanowania kolejnych wydatków w różnych miejscach na ziemi oraz podliczenia całkowitego kosztu w wybranej walucie.
-Na stronie listy krajów znajdują się podstawowe informacje dotyczące wybranych krajów.
+### Projekt został stworzony w celu zebrania najpotrzebniejszych narzędzi w planowaniu podróży i wydatków z nią związanych.
+- Na stronie głównej możemy przeliczyć walutę dowolnych dwóch krajów, bez ich znajomości.
+- Strona kalkulatora podróży daje możliwość zaplanowania kolejnych wydatków w różnych miejscach na ziemi oraz podliczenia całkowitego kosztu w wybranej walucie.
+- Na stronie listy krajów znajdują się podstawowe informacje dotyczące wybranych krajów.
 
 ## Podgląd projektu
 
