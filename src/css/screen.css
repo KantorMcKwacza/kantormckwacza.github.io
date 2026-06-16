@@ -1,6 +1,27 @@
+
+html, body, .main-wrapper {
+  min-height: 100dvh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  box-sizing: border-box;
+}
+
 @media screen and (orientation: portrait) {
   main {
     background-image: url('/assets/images/bg_portrait.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     transition: background 1.5s ease;
   }
 }
@@ -32,7 +53,10 @@
 
 @media screen and (width < 800px) {
   .main-form {
-    width: 100%;
+    width: calc(100% - 2rem);
+    max-width: 480px;
+    margin: 0 auto;
+    box-sizing: border-box;
     border-left: none;
     border-right: none;
   }
