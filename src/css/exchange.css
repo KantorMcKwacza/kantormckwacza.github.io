@@ -1,44 +1,46 @@
-*{
+* {
     font-family: comic;
-        font-weight: 500;
+    font-weight: 500;
+    box-sizing: border-box;
 }
+
 .table {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
+
 .description {
     display: flex;
     flex-direction: column;
-    min-width: 60vw;
-    max-width: min(90vw, 1920px);
-    margin: 2rem auto;
+    width: 100%;
+    max-width: min(600px, 100% - 2rem);
+    margin: 1rem auto;
     padding: 2rem;
     padding-bottom: 3rem;
     border: 14px double;
     border-radius: 15px;
-    
+
     text-align: center;
-    font-size: 2.5rem;
-    margin: 1rem auto;
-    max-width: 600px;
+    font-size: clamp(1.1rem, 4vw, 2.5rem);
 
     background-color: light-dark(var(--table-background-color-light), var(--table-background-color-dark));
     border-color: light-dark(var(--table-border-color-light), var(--table-border-color-dark));
     color: light-dark(var(--table-text-color-light), var(--table-text-color-dark));
 }
+
 .main-form {
     display: flex;
     flex-direction: column;
-    min-width: 60vw;
-    max-width: min(90vw, 1920px);
+    width: 100%;
+    max-width: min(900px, 100% - 2rem);
     margin: 2rem auto;
     padding: 2rem;
     padding-bottom: 3rem;
     border: 14px double;
     border-radius: 15px;
-    
+
     background-color: light-dark(var(--table-background-color-light), var(--table-background-color-dark));
     border-color: light-dark(var(--table-border-color-light), var(--table-border-color-dark));
     color: light-dark(var(--table-text-color-light), var(--table-text-color-dark));
@@ -111,14 +113,15 @@
 .input-group .bottom-input-select {
     flex-shrink: 0;
 }
+
 .input-group:hover {
     filter: brightness(1.2);
-    box-shadow: inset 0 0 0 4px light-dark(var(--table-border-color-light), var(--table-border-color-dark)), ;
+    box-shadow: inset 0 0 0 4px light-dark(var(--table-border-color-light), var(--table-border-color-dark));
 }
 
 .input-group .top-input,
 .input-group .input-group-select,
-.input-group .bottom-input
+.input-group .bottom-input,
 .input-group-select {
     box-sizing: border-box;
     height: 45px;
@@ -147,9 +150,7 @@ select {
     flex-shrink: 0;
 }
 
-
 /* Usunięcie strzałek z inputów typu number */
-
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -161,20 +162,23 @@ input[type="number"] {
     -moz-appearance: textfield;
     appearance: textfield;
 }
-/* jesli < 768px to usuwa dolne marginesy*/
+
+
 @media (max-width: 768px) {
     .description, .main-form {
-        max-width: 100%;
-        margin: 0;
-        border-radius: 0;
-        border-left: none;
-        border-right: none;
+        padding: 1.5rem 1rem;
+        border-width: 8px;
     }
     .description {
-        border-bottom: none;
+        padding-bottom: 1.5rem;
     }
-    .main-form {
-        border-top: none;
-        box-shadow: none;
+    .input-group {
+        flex-wrap: wrap;
+        padding: 10px;
+        gap: 10px;
+    }
+    .input-group select {
+        min-width: 100%;
+        margin-left: 0;
     }
 }
