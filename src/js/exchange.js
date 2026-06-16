@@ -8,13 +8,14 @@ fillCurrencyList(currencyList);
 populateWithCountries([calcForm.origin, calcForm.target], 'option',true);
 
 async function calculateCurrencyExchange() {
-  let value = parseFloat(calcForm.amount.value, 10);
+  let value = parseFloat(calcForm.amount.value);
   if(isNaN(value)) {
     calcForm.result.innerText = 0.00;
     return;
   }
   let valueInPLN     = await exchangeToFromPLN(originCountryCode, exchangeDirection.INTO, value);
   let exchangedValue = await exchangeToFromPLN(targetCountryCode, exchangeDirection.FROM, valueInPLN);
+
   calcForm.result.innerText = exchangedValue.toFixed(resultPrecision);
 }
 

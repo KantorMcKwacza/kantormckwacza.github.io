@@ -102,7 +102,7 @@ async function getCountryDetails(countryCode) {
 }
 
 async function fillCurrencyList(currencyList) {
-  let fields = 'codes.alpha_3,currencies';
+  let fields = 'codes.alpha_3,currencies&limit=100&offset=1';
 
   fetch(countriesApiUrl + withThose + fields, { headers: countryApiHeaders })
     .then(response => {

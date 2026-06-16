@@ -199,6 +199,7 @@ class MainContent extends UIComponent {
                                         type: 'number', 
                                         name: 'value', 
                                         placeholder: 'Koszt Wydatku', 
+                                        min: 0,
                                         max: '999999999',
                                         oninput: 'if(this.value.length > 9) this.value = this.value.slice(0, 9);',
                                         required: 'true' 
