@@ -27,17 +27,6 @@
         display: none;
       }
     }
-   
-    tfoot tr {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
-    tfoot tr th {
-      flex: 1;
-      border: none;
-    }
   }
 }
 
@@ -65,11 +54,6 @@
   .new-entry-form-output {
     margin-left: 0.8rem !important;
   }
- 
-  .new-entry-form-select {
-    width: 100%;
-    box-sizing: border-box;
-  }
   #expenses-table {
     thead, tbody {
       tr td:nth-child(1), tr th:nth-child(1) {
@@ -85,23 +69,41 @@
         flex-basis: 40%;
       }
     }
-    
-    tfoot tr {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 1rem 0;
-      width: 100%;
-    }
-    tfoot tr th {
-      display: flex !important;
-      justify-content: center !important;
-      align-items: center !important;
-      width: 100% !important;
-      border: none !important;
-      margin: 0 !important;
-    }
+  }
+
+  #expenses-table tfoot {
+    display: block !important;
+    width: 100%;
+  }
+  #expenses-table tfoot tr {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.8rem;
+    padding: 1rem 0;
+    width: 100%;
+  }
+  #expenses-table tfoot tr th {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    border: none !important;
+    margin: 0 !important;
+  }
+
+ 
+  #expenses-table tfoot tr th select {
+    width: 100%;
+    max-width: 240px;
+    box-sizing: border-box;
+  }
+
+  
+  .btn-clear-table {
+    width: 100%;
+    max-width: 240px;
+    box-sizing: border-box;
   }
 
 #expenses-table tfoot tr th:nth-child(1) {
@@ -123,12 +125,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .btn-clear-table {
-    width: 100%;
-    max-width: 300px;
-    box-sizing: border-box;
   }
 }
 
