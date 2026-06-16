@@ -27,6 +27,17 @@
         display: none;
       }
     }
+   
+    tfoot tr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    tfoot tr th {
+      flex: 1;
+      border: none;
+    }
   }
 }
 
@@ -54,6 +65,11 @@
   .new-entry-form-output {
     margin-left: 0.8rem !important;
   }
+ 
+  .new-entry-form-select {
+    width: 100%;
+    box-sizing: border-box;
+  }
   #expenses-table {
     thead, tbody {
       tr td:nth-child(1), tr th:nth-child(1) {
@@ -68,6 +84,23 @@
       tr td:nth-child(4), tr th:nth-child(4) {
         flex-basis: 40%;
       }
+    }
+    
+    tfoot tr {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem 0;
+      width: 100%;
+    }
+    tfoot tr th {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      width: 100% !important;
+      border: none !important;
+      margin: 0 !important;
     }
   }
 
@@ -90,6 +123,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .btn-clear-table {
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
   }
 }
 
@@ -128,8 +167,9 @@ main section {
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   transition: transform 0.2s, background-color 0.2s, border-color 0.2s;
-  width: 200%;
-  max-width: 100px;
+  width: auto;            
+  min-width: 160px;       
+  max-width: 100%;
   margin: 1rem auto;
   display: flex;
   align-items: center;
