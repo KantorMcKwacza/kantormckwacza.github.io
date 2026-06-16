@@ -31,11 +31,12 @@
 }
 
 @media screen and (width < 800px) {
-.main-form {
-    width: calc(100% - 2rem);
-    margin: 1rem auto; 
-    
-  }
+
+
+
+
+
+
   .nav-desktop {
     display: none;
   }
@@ -137,6 +138,19 @@
     justify-content: center;
   }
 
+ main {
+    scrollbar-gutter: auto;
+  }
+
+
+  .table {
+    width: 100%;
+  }
+  .main-form {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
 }
 
 .calculator-title {
@@ -156,7 +170,6 @@ main section {
   align-items: center;
   width: 100%;
 }
-
 
 #expenses-table {
   width: 100%;
